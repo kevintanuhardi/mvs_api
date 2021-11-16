@@ -1,10 +1,13 @@
 -- +goose Up
-CREATE TABLE `sale_order`
+CREATE TABLE `user`
 (
     `id`            int(11)      NOT NULL AUTO_INCREMENT,
-    `customer_id`   int(11)      NOT NULL,
-    `trx_id`        varchar(140) NOT NULL,
-    `status`        varchar(40)  NOT NULL,
+    `employee_id`   varchar(40)      NOT NULL,
+    `company_id`		varchar(140) NOT NULL,
+    `active`        boolean			  NOT NULL,
+    `phone_number`	varchar(25)			  NOT NULL,
+    `email`					varchar(40)			  NOT NULL,
+    `password`			varchar(255)			  NOT NULL,
     `created_at`    Timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`    Timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
@@ -14,4 +17,4 @@ CREATE TABLE `sale_order`
     ENGINE = InnoDB;
 
 -- +goose Down
-DROP TABLE IF EXISTS `sale_order`;
+DROP TABLE IF EXISTS `user`;
