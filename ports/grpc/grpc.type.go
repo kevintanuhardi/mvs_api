@@ -35,7 +35,7 @@ type Server interface {
 }
 type RegisterPrometheus func(server *grpc.Server)
 type networkListen func(network, address string) (net.Listener, error)
-type RegisterbrookServer func(s *grpc.Server, srv pb.brookServer)
+type RegisterbrookServer func(s *grpc.Server, srv pb.BrookServer)
 type RegisterReflection func(s reflection.GRPCServer)
 type transformer func(original *grpc.Server) grpcInterface
 type NewGRPCServer func(o *localOption) Server

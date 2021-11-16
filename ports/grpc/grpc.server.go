@@ -66,7 +66,7 @@ func New(o *localOption) Server {
 		GrpcPort:               fmt.Sprintf("0.0.0.0:%d", o.Cfg.Port.Grpc),
 		PrometheusPort:         fmt.Sprintf("0.0.0.0:%d", o.Cfg.Port.GrpcMetric),
 		networkListen:          net.Listen,
-		RegisterbrookServer: pb.RegisterbrookServer,
+		RegisterbrookServer: pb.RegisterBrookServer,
 		RegisterReflection:     reflection.Register,
 		RegisterPrometheus:     grpc_prometheus.Register,
 		transformer:            transformGRPCServer,
