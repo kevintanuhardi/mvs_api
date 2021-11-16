@@ -1,0 +1,203 @@
+image: asia.gcr.io/warung-support/golang-alpine-ci:1.16.6
+variables:
+  REGISTRY_IMAGE: asia.gcr.io/warung-support/${CI_PROJECT_NAME}
+
+after_script:
+  - rm -rf $HOME/.ssh
+
+stages:
+  - proto
+  - report
+  - verify
+  - build
+
+.go-init: &go_init_config
+  variables:
+    GOPATH: $CI_PROJECT_DIR/.go # override default GOPATH and make it cacheable
+    GOCACHE: $CI_PROJECT_DIR/.go-cache # override default GOCACHE and make it cacheable
+    GO111MODULE: "on"
+    GOPRIVATE: gitlab.warungpintar.co/*
+  before_script:
+    # Create cache folder
+    - mkdir -p .go
+    - mkdir -p .go-cache
+    - mkdir -p .reports
+    - export PATH=$PATH:$GOPATH/bin
+
+    # Set authn to pulling private dependencies
+    - mkdir -p ~/.ssh
+    - echo "$GIT_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa 
+    - echo "Host *" > ~/.ssh/config
+    - echo " StrictHostKeyChecking no" >> ~/.ssh/config
+    - git config --global url."git@gitlab.warungpintar.co:".insteadOf "https://gitlab.warungpintar.co/"
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .go-cache
+      - .go/pkg/mod
+
+generate-proto:
+  image: namely/protoc-all:1.30_0
+  stage: proto
+  before_script:
+    - apk add make
+  script:
+    - make proto
+  only:
+    - merge_requests
+    - master
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ${CI_PROJECT_DIR}/proto
+  tags:
+    - gke
+
+linter:
+  <<: *go_init_config
+  stage: report
+  variables:
+    GOPRIVATE: "gitlab.warungpintar.co"
+  before_script:
+    - mkdir -p $HOME/.docker
+    - echo "$DOCKER_AUTH_CONFIG" >> "$HOME/.docker/config.json"
+    - mkdir -p $HOME/.ssh
+    - touch $HOME/.ssh/config
+    - echo "${GIT_PRIVATE_KEY}" > $HOME/.ssh/id_rsa
+    - chmod 600 $HOME/.ssh/id_rsa
+    - echo "IdentityFile $HOME/.ssh/id_rsa" >> $HOME/.ssh/config
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > $HOME/.ssh/config
+    - git config --global url."git@gitlab.warungpintar.co:".insteadOf "https://gitlab.warungpintar.co/"
+  script:
+    - mkdir -p reports
+    - GOPRIVATE=gitlab.warungpintar.co
+    - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.41.1
+    - golangci-lint run --issues-exit-code 0 --timeout 10m --out-format checkstyle > ${CI_PROJECT_DIR}/reports/report.xml
+  only:
+    - merge_requests
+    - master
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ${CI_PROJECT_DIR}/reports
+  artifacts:
+    paths:
+      - ${CI_PROJECT_DIR}/reports/report.xml
+    expire_in: 1 week
+  tags:
+    - gke
+
+unit-test:
+  <<: *go_init_config
+  stage: report
+  coverage: /total:\s+\(statements\)\s+(\d+.\d+\%)/
+  variables:
+    GOPRIVATE: "gitlab.warungpintar.co"
+  before_script:
+    - mkdir -p $HOME/.docker
+    - echo "$DOCKER_AUTH_CONFIG" >> "$HOME/.docker/config.json"
+    - mkdir -p $HOME/.ssh
+    - touch $HOME/.ssh/config
+    - echo "${GIT_PRIVATE_KEY}" > $HOME/.ssh/id_rsa
+    - chmod 600 $HOME/.ssh/id_rsa
+    - echo "IdentityFile $HOME/.ssh/id_rsa" >> $HOME/.ssh/config
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > $HOME/.ssh/config
+    - git config --global url."git@gitlab.warungpintar.co:".insteadOf "https://gitlab.warungpintar.co/"
+  script:
+    - mkdir -p reports
+    - GOPRIVATE=gitlab.warungpintar.co
+    - sh coverage.sh
+    - go test ./... -coverprofile ${CI_PROJECT_DIR}/reports/cover.out
+  only:
+    - merge_requests
+    - master
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - ${CI_PROJECT_DIR}/reports
+  artifacts:
+    paths:
+      - .testCoverage.txt
+    expire_in: 1 week
+  allow_failure: true
+  tags:
+    - gke
+
+verify-with-sonarcube:
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [ "" ]
+  stage: verify
+  variables:
+    SONAR_LOGIN: ${SONAR_TOKEN}
+    SONAR_HOST_URL: "https://sonar.warungpintar.co"
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" # Defines the location of the analysis task cache
+    SONAR_PROJECT_BASE_DIR: "${CI_PROJECT_DIR}"
+    GIT_DEPTH: "0" # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .sonar/cache
+  script:
+    - |
+      sonar-scanner -Dsonar.sources=. \
+      -Dsonar.exclusions=**/*_test.go,**/*.gen.go,**/vendor/**,**/mocks/**/*.* \
+      -Dsonar.tests=. \
+      -Dsonar.test.inclusions=**/*_test.go \
+      -Dsonar.coverage.exclusions=**/cmd/**/*.*,**/pkg/**/*.*,**/config/**/*.*,**/*_mock.go,**/proto/**/*.*,**/internal/server/**/*.*,**/internal/handler/**/*.* \
+      -Dsonar.go.coverage.reportPaths=${CI_PROJECT_DIR}/reports/cover.out \
+      -Dsonar.go.golangci-lint.reportPaths=${CI_PROJECT_DIR}/reports/report.xml \
+      -Dsonar.gitlab.all_issues=true \
+      -Dsonar.gitlab.only_issue_from_commit_line=true  \
+      -Dsonar.gitlab.only_issue_from_commit_file=true \
+      -Dsonar.gitlab.comment_no_issue=true \
+      -Dsonar.gitlab.commit_sha=$(git log --pretty=format:%H $(git rev-list --simplify-by-decoration -2 HEAD | tail -1)..$(git rev-list --simplify-by-decoration -1 HEAD) | tr '\n' ',') \
+      -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME \
+      -Dsonar.gitlab.project_id=$CI_PROJECT_PATH \
+      -Dsonar.gitlab.ci_merge_request_iid=$CI_MERGE_REQUEST_IID \
+      -Dsonar.gitlab.merge_request_discussion=true \
+      -Dsonar.gitlab.url=https://gitlab.warungpintar.co \
+      -Dsonar.gitlab.user_token=${SONAR_GITLAB_USER_TOKEN} \
+      -Dsonar.projectKey=brook \
+      -Dsonar.host.url=$SONAR_HOST_URL \
+      -Dsonar.login=$SONAR_LOGIN
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+  tags:
+    - gke
+
+build-merge:
+  <<: *go_init_config
+  image:
+    name: gcr.io/kaniko-project/executor:debug-v0.16.0
+    entrypoint: [""]
+  stage: build
+  before_script:
+    - mkdir -p /root/.docker
+    - echo "$DOCKER_AUTH_CONFIG" > /kaniko/.docker/config.json
+  only:
+    - master
+  script:
+    - /kaniko/executor --build-arg SSH_PRIVATE_KEY="$GIT_PRIVATE_KEY" --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination ${REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+  tags:
+    - gke
+
+build-tagging:
+  <<: *go_init_config
+  image:
+    name: gcr.io/kaniko-project/executor:debug-v0.16.0
+    entrypoint: [""]
+  stage: build
+  before_script:
+    - mkdir -p /root/.docker
+    - echo "$DOCKER_AUTH_CONFIG" > /kaniko/.docker/config.json
+  only:
+    - tag
+  script:
+    - /kaniko/executor --build-arg SSH_PRIVATE_KEY="$GIT_PRIVATE_KEY" --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination ${REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}
+  tags:
+    - gke
+

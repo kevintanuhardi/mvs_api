@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+    
+    db:
+        build:
+            context: "./db"
+        restart: always
+        command: --default-authentication-plugin=mysql_native_password
+        ports:
+            - "3307:3306"
+
+    rest:
+        build:
+            context: "."
+        restart: always
+        command: rest
+        environment: 
+            - DB_MASTER_DSN=brook:brook@tcp(db:3306)/brook?parseTime=true&timeout=5s
+            - DB_REPLICA_DSN=brook:brook@tcp(db:3306)/brook?parseTime=true&timeout=5s
+        volumes: 
+            - ./config:/opt/brook/config
+        ports: 
+            - "8009:8009"
+            - "7070:7070"
+
+    grpc:
+        build:
+            context: "."
+        restart: always
+        command: grpc
+        environment: 
+            - DB_MASTER_DSN=brook:brook@tcp(db:3306)/brook?parseTime=true&timeout=5s
+            - DB_REPLICA_DSN=brook:brook@tcp(db:3306)/brook?parseTime=true&timeout=5s
+        volumes: 
+            - ./config:/opt/brook/config
+        ports: 
+            - "5077:5077"
+            - "7071:7071"

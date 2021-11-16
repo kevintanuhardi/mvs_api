@@ -1,0 +1,541 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+make: *** No rule to make target `all'.  Stop.
+ 
+
+# Make data base, printed on Tue Nov 16 15:12:24 2021
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+LC_CTYPE = UTF-8
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/KevinTanuhardi/Documents/Bizzy/brook
+# makefile
+ 
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# environment
+WALLABY_PRODUCTION = true
+# makefile (from `Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# environment
+GO111MODULE = on
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+__CFBundleIdentifier = com.microsoft.VSCode
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/8z/nzkd9pgn0433gtnj76qlbw2h0000gq/T/vscode-ipc-cdb469db-dd6e-4b94-ae74-df4467861b48.sock
+# environment
+VSCODE_CWD = /Users/KevinTanuhardi/Documents/Bizzy
+# environment
+GOPROXY = https://proxy.golang.org,direct
+# environment
+PATH = /usr/local/go/bin:/Users/KevinTanuhardi/opt/anaconda3/bin:/Users/KevinTanuhardi/opt/anaconda3/condabin:/Users/KevinTanuhardi/.nvm/versions/node/v12.16.2/bin:/Users/KevinTanuhardi/go/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/KevinTanuhardi/Library/Android/sdk/emulator:/Users/KevinTanuhardi/Library/Android/sdk/tools:/Users/KevinTanuhardi/Library/Android/sdk/tools/bin:/Users/KevinTanuhardi/Library/Android/sdk/platform-tools
+# environment
+GOROOT = /usr/local/go
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# makefile (from `Makefile', line 3)
+pkgs := gitlab.warungpintar.co/sales-platform/brook gitlab.warungpintar.co/sales-platform/brook/adapter gitlab.warungpintar.co/sales-platform/brook/cmd gitlab.warungpintar.co/sales-platform/brook/config gitlab.warungpintar.co/sales-platform/brook/db/seeds gitlab.warungpintar.co/sales-platform/brook/domain/dto gitlab.warungpintar.co/sales-platform/brook/domain/entity gitlab.warungpintar.co/sales-platform/brook/domain/repository gitlab.warungpintar.co/sales-platform/brook/domain/repository/mysql gitlab.warungpintar.co/sales-platform/brook/domain/usecase gitlab.warungpintar.co/sales-platform/brook/pkg/db gitlab.warungpintar.co/sales-platform/brook/pkg/logger gitlab.warungpintar.co/sales-platform/brook/pkg/metrics gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver gitlab.warungpintar.co/sales-platform/brook/pkg/middleware gitlab.warungpintar.co/sales-platform/brook/pkg/render gitlab.warungpintar.co/sales-platform/brook/pkg/response gitlab.warungpintar.co/sales-platform/brook/pkg/router gitlab.warungpintar.co/sales-platform/brook/pkg/router/adapter gitlab.warungpintar.co/sales-platform/brook/pkg/tracing gitlab.warungpintar.co/sales-platform/brook/pkg/webservice gitlab.warungpintar.co/sales-platform/brook/ports/grpc gitlab.warungpintar.co/sales-platform/brook/ports/rest gitlab.warungpintar.co/sales-platform/brook/ports/rest/intools gitlab.warungpintar.co/sales-platform/brook/ports/rest/public
+# environment
+GOPATH = /Users/KevinTanuhardi/go
+# environment
+NVM_BIN = /Users/KevinTanuhardi/.nvm/versions/node/v12.16.2/bin
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+ANDROID_HOME = /Users/KevinTanuhardi/Library/Android/sdk
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.5QOTLdNLsn/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+CONDA_EXE = /Users/KevinTanuhardi/opt/anaconda3/bin/conda
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /Users/KevinTanuhardi/Documents/Bizzy/brook
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+GOMODCACHE = /Users/KevinTanuhardi/go/pkg/mod
+# environment
+HOME = /Users/KevinTanuhardi
+# default
+MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
+# environment
+VSCODE_CLI = 1
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/KevinTanuhardi/Library/Application Support/Code/CachedData/3a6960b964327f0e3882ce18fcebd07ed191b316
+# environment
+LOGNAME = KevinTanuhardi
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+CONDA_PROMPT_MODIFIER = 
+# environment
+NVM_CD_FLAGS = -q
+# environment
+ZSH = /Users/KevinTanuhardi/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+CONDA_DEFAULT_ENV = base
+# environment
+XPC_FLAGS = 0x0
+# environment
+COLORTERM = truecolor
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+LC_TERMINAL = iTerm2
+# environment
+SHLVL = 3
+# environment
+JAVA_HOME = /Library/Java/JavaVirtualMachines/jdk-16.0.2.jdk/Contents/Home
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = KevinTanuhardi
+# makefile
+.DEFAULT_GOAL := lint
+# default
+MAKECMDGOALS := all
+# environment
+TERM_SESSION_ID = w0t0p1:86CF87EC-BFEC-4508-A1F7-37EA9AA6F41C
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+CONDA_SHLVL = 1
+# default
+MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+# environment
+TERM_PROGRAM = iTerm.app
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/8z/nzkd9pgn0433gtnj76qlbw2h0000gq/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/KevinTanuhardi/Library/Application Support/Code/1.62.2-main.sock
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+TERM_PROGRAM_VERSION = 3.4.11
+# environment
+NVM_DIR = /Users/KevinTanuhardi/.nvm
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.47907243.47907249.713A9AEA-004A-470A-8AAE-2B8757B6942B
+# environment
+LC_TERMINAL_VERSION = 3.4.11
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# environment
+ITERM_SESSION_ID = w0t0p1:86CF87EC-BFEC-4508-A1F7-37EA9AA6F41C
+# makefile (from `Makefile', line 2)
+STIME := 1637050344
+# environment
+COLORFGBG = 7;0
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F7:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+ITERM_PROFILE = Default
+# environment
+GOPRIVATE = gitlab.warungpintar.co
+# makefile (from `Makefile', line 1)
+PROJECTNAME := brook
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# environment
+CONDA_PYTHON_EXE = /Users/KevinTanuhardi/opt/anaconda3/bin/python
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+_CE_M = 
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# environment
+CONDA_PREFIX = /Users/KevinTanuhardi/opt/anaconda3
+# environment
+TERM = xterm-256color
+# environment
+VSCODE_PID = 1500
+# environment
+_CE_CONDA = 
+# environment
+LANG = C
+# variable set hash-table stats:
+# Load=102/1024=10%, Rehash=0, Collisions=7/133=5%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777220, inode 48395735): 25 files, no impossibilities.
+
+# 25 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+migrate-up:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 109):
+	goose --dir=db/migrations mysql "brook:brook@tcp(localhost:3307)/brook?parseTime=true&timeout=5s" up
+	
+
+ 
+docker-rest: build-docker
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 58):
+	@echo "  >  Starting Program..."
+	docker run -d \
+	--name brook \
+	-p 8009:8009 \
+	--mount type=bind,source="$(CURDIR)"/config,target=/config \
+	--network brook_default \
+	--link brook_db_1:brook_db_1 \
+	--rm sales-platform/brook rest
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+check-dev:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 105):
+	docker-compose ps
+	
+
+migrate-down:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 113):
+	goose --dir=db/migrations mysql "brook:brook@tcp(localhost:3307)/brook?parseTime=true&timeout=5s" reset
+	
+
+# Not a target:
+all:
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+.PHONY: lint test coverage coverhtml build rest grpc build-docker docker-rest docker-grpc start-dev stop-dev check-dev migrate-up migrate-down seed proto sonarqube-server run-sonarqube unit-test sonar-scan sonar-coverage
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+sonar-scan:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 142):
+	@echo "${STIME} Scan project"
+	@sonar-scanner -Dproject.settings=sonar-project.properties
+	
+
+stop-dev:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 98):
+	@echo " > Stop Development ENV..."
+	docker-compose down
+	@echo " > Done Stop Development ENV..."
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+coverhtml:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 25):
+	chmod u+x coverage.sh
+	./coverage.sh html;
+	
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+rest: build
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 37):
+	@echo "  >  Starting Program..."
+	./bin/${PROJECTNAME} rest
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2021-11-16 15:11:39
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+proto:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 123):
+	@echo "  >  Start Generate Proto..."
+	protoc brook.proto --proto_path=proto/brook/ --go_out=plugins=grpc:proto
+	
+
+test: proto
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 13):
+	@echo "  >  Testing Program..."
+	go test -race ./...
+	
+
+build: proto
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 30):
+	@echo ">  Building Program..."
+	GOPRIVATE=gitlab.warungpintar.co go build -ldflags="-s -w" -o bin/${PROJECTNAME} main.go; 
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+seed: build
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 117):
+	@echo "  >  Starting Seeding Data..."
+	./bin/${PROJECTNAME} seed
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+start-dev:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 91):
+	@echo " > Start Development ENV..."
+	docker-compose up --build -d
+	@echo " > Done Start Development ENV..."
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+grpc: build
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 44):
+	@echo "  >  Starting Program..."
+	./bin/${PROJECTNAME} grpc
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+sonarqube-server:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 128):
+	@docker create --name=sonarqube-server -p 9000:9000 sonarqube:8.5-community
+	
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+sonar-coverage: unit-test sonar-scan
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+unit-test: proto
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 136):
+	@rm -f cover.out
+	@echo "${STIME} running tests"
+	@go test -race -coverprofile=cover.out $(pkgs)
+	
+
+build-docker:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 51):
+	@echo ">  Building Program..."
+	docker build -t sales-platform/brook .
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+coverage:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 19):
+	chmod u+x coverage.sh
+	./coverage.sh;
+	
+
+docker-grpc: build-docker
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 79):
+	@echo "  >  Starting Program..."
+	docker run -d \
+	--name brook \
+	-p 8009:8009 \
+	--mount type=bind,source="$(CURDIR)"/config,target=/config \
+	--network brook_default \
+	--link brook_db_1:brook_db_1 \
+	--rm sales-platform/brook grpc
+	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
+	
+
+lint:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 7):
+	@echo "  >  Linting Program..."
+	golangci-lint run --issues-exit-code 0 --timeout 10m
+	
+
+run-sonarqube:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 132):
+	@docker start sonarqube-server
+	
+
+mock:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 69):
+	mockgen --source=domain/repository/repository.go --destination=domain/repository/mocks/repository.go --package mocks
+	mockgen --source=domain/usecase/service.go --destination=domain/usecase/mocks/service.go --package mocks
+ 
+	mockgen --source=ports/grpc/grpc.type.go --destination=ports/grpc/mocks/grpc.server.go --package mocks
+	mockgen --source=domain/repository/repository.go --destination=domain/repository/mocks/repository.go --package mocks
+	mockgen --source=pkg/webservice/server.type.go --destination=pkg/webservice/mocks/server.type.go --package mocks
+	mockgen --source=pkg/router/router.go --destination=pkg/router/mocks/router.go --package mocks
+	
+
+# files hash-table stats:
+# Load=28/1024=3%, Rehash=0, Collisions=5/93=5%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+
+# Finished Make data base on Tue Nov 16 15:12:24 2021
+
+ 

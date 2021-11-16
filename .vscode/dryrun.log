@@ -1,0 +1,6 @@
+make: Entering directory `/Users/KevinTanuhardi/Documents/Bizzy/brook'
+echo "  >  Linting Program..."
+golangci-lint run --issues-exit-code 0 --timeout 10m
+ 
+make: Leaving directory `/Users/KevinTanuhardi/Documents/Bizzy/brook'
+ 

@@ -1,0 +1,8 @@
+vendor
+.env
+.idea
+app-secret.yml
+static/*
+reports/*
+coverage.html
+gl-code-quality-report.json

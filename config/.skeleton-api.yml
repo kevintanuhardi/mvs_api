@@ -1,0 +1,24 @@
+# App configuration
+App:
+  name: "brook"
+  version: "0.1.0"
+  latency: 30 # milliseconds
+  read_timeout: 5 # seconds
+  write_timeout: 10 # seconds
+  debug: false # (true|false)
+  env: staging # ('development'|'staging'|'production')
+  secret_key: sekret
+  expire_in: 10800
+
+Ports:
+  http: 8009
+  http_metric: 7070
+  grpc: 5077
+  grpc_metric: 7071
+
+DB:
+  master_dsn: brook:brook@tcp(localhost:3307)/brook?parseTime=true&timeout=5s
+  replica_dsn: brook:brook@tcp(localhost:3307)/brook?parseTime=true&timeout=5s
+  max_life_time: 3
+  max_open: 10
+  max_idle: 10
