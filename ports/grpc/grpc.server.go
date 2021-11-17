@@ -66,7 +66,7 @@ func New(o *localOption) Server {
 		GrpcPort:               fmt.Sprintf("0.0.0.0:%d", o.Cfg.Port.Grpc),
 		PrometheusPort:         fmt.Sprintf("0.0.0.0:%d", o.Cfg.Port.GrpcMetric),
 		networkListen:          net.Listen,
-		RegisterbrookServer: pb.RegisterBrookServer,
+		RegisterBrookServer: pb.RegisterBrookServer,
 		RegisterReflection:     reflection.Register,
 		RegisterPrometheus:     grpc_prometheus.Register,
 		transformer:            transformGRPCServer,
@@ -77,7 +77,7 @@ func New(o *localOption) Server {
 	)
 	se.server = s
 
-	se.RegisterbrookServer(s, se)
+	se.RegisterBrookServer(s, se)
 	se.RegisterReflection(s)
 	se.RegisterPrometheus(s)
 

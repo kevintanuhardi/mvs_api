@@ -40,7 +40,7 @@ func (obj *testObject) SetupTest() {
 		networkListen: func(network, address string) (net.Listener, error) {
 			return nil, nil
 		},
-		RegisterbrookServer: func(s *grpc.Server, srv brook.brookServer) {
+		RegisterBrookServer: func(s *grpc.Server, srv brook.BrookServer) {
 		},
 		RegisterReflection: func(s reflection.GRPCServer) {
 		},
