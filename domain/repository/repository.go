@@ -8,4 +8,5 @@ import (
 
 type Repository interface {
 	FindOrder(ctx context.Context) ([]*entity.OrderAggregate, error)
+	UserRegister(ctx context.Context, userData *entity.User) error
 }

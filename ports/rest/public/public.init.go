@@ -23,6 +23,7 @@ func (p *Public) Register(rr router.Registrator) {
 	r := router.New(p.prefix, rr)
 	r.GET("/ping", p.PING)
 	r.GET("/order", p.GetOrder)
+	r.POST("/user", p.RegisterUser)
 }
 
 func (p *Public) PING(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
