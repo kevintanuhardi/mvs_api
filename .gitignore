@@ -13,3 +13,4 @@ gl-code-quality-report.json
 cover.out
 .scannerwork
 .DS_Store
+.vscode

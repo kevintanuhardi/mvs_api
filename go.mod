@@ -7,6 +7,7 @@ require (
 	github.com/HdrHistogram/hdrhistogram-go v1.1.0 // indirect
 	github.com/go-chi/chi v1.5.4
 	github.com/go-chi/render v1.0.1
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang/mock v1.5.0
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
