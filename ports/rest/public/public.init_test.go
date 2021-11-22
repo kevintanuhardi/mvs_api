@@ -9,13 +9,13 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/usecase"
-	usecasemock "gitlab.warungpintar.co/sales-platform/brook/domain/usecase/mocks"
+	"gitlab.warungpintar.co/sales-platform/brook/domain"
+	usecasemock "gitlab.warungpintar.co/sales-platform/brook/domain/user/usecase/mocks"
 	routermocks "gitlab.warungpintar.co/sales-platform/brook/pkg/router/mocks"
 )
 
 func TestNewHandler(t *testing.T) {
-	handler := NewHandler(&usecase.Service{})
+	handler := NewHandler(domain.DomainService{})
 	require.NotNil(t, handler)
 }
 
@@ -48,7 +48,7 @@ func Test_public(t *testing.T) {
 
 func (obj *testObject) TestRegister() {
 	obj.mockRouterRegistrator.EXPECT().Register(http.MethodGet, "/ping", gomock.Any()).Return()
-	obj.mockRouterRegistrator.EXPECT().Register(http.MethodGet, "/order", gomock.Any()).Return()
+	obj.mockRouterRegistrator.EXPECT().Register(http.MethodGet, "/user", gomock.Any()).Return()
 	obj.module.Register(obj.mockRouterRegistrator)
 }
 

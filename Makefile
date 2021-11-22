@@ -66,10 +66,11 @@ docker-rest: build-docker
 	@echo "Process took $$(($$(date +%s)-$(STIME))) seconds"
 
 mock:
-	mockgen --source=domain/repository/repository.go --destination=domain/repository/mocks/repository.go --package mocks
-	mockgen --source=domain/usecase/service.go --destination=domain/usecase/mocks/service.go --package mocks
+	mockgen --source=domain/domain.go --destination=domain/mocks/repository.go --package mocks
+	mockgen --source=domain/user/repository/repository.go --destination=domain/user/repository/mocks/repository.go --package mocks
+	mockgen --source=domain/user/usecase/user.go --destination=domain/user/usecase/mocks/service.go --package mocks
 	mockgen --source=ports/grpc/grpc.type.go --destination=ports/grpc/mocks/grpc.server.go --package mocks
-	mockgen --source=domain/repository/repository.go --destination=domain/repository/mocks/repository.go --package mocks
+	mockgen --source=domain/user/repository/repository.go --destination=domain/user/repository/mocks/repository.go --package mocks
 	mockgen --source=pkg/webservice/server.type.go --destination=pkg/webservice/mocks/server.type.go --package mocks
 	mockgen --source=pkg/router/router.go --destination=pkg/router/mocks/router.go --package mocks
 

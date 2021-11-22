@@ -3,17 +3,17 @@ package public
 import (
 	"net/http"
 
-	"gitlab.warungpintar.co/sales-platform/brook/domain/usecase"
+	"gitlab.warungpintar.co/sales-platform/brook/domain"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/response"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
 )
 
 type Public struct {
-	service usecase.ServiceManager
+	service domain.DomainService
 	prefix  string
 }
 
-func NewHandler(service usecase.ServiceManager) *Public {
+func NewHandler(service domain.DomainService) *Public {
 	return &Public{
 		service: service,
 		prefix:  "/api",
@@ -22,7 +22,7 @@ func NewHandler(service usecase.ServiceManager) *Public {
 func (p *Public) Register(rr router.Registrator) {
 	r := router.New(p.prefix, rr)
 	r.GET("/ping", p.PING)
-	r.GET("/order", p.GetOrder)
+	r.POST("/user", p.RegisterUser)
 }
 
 func (p *Public) PING(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
