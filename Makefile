@@ -69,6 +69,7 @@ mock:
 	mockgen --source=domain/domain.go --destination=domain/mocks/repository.go --package mocks
 	mockgen --source=domain/user/repository/repository.go --destination=domain/user/repository/mocks/repository.go --package mocks
 	mockgen --source=domain/user/usecase/user.go --destination=domain/user/usecase/mocks/service.go --package mocks
+	mockgen --source=domain/otp/usecase/otp.go --destination=domain/otp/usecase/mocks/service.go --package mocks
 	mockgen --source=ports/grpc/grpc.type.go --destination=ports/grpc/mocks/grpc.server.go --package mocks
 	mockgen --source=domain/user/repository/repository.go --destination=domain/user/repository/mocks/repository.go --package mocks
 	mockgen --source=pkg/webservice/server.type.go --destination=pkg/webservice/mocks/server.type.go --package mocks
