@@ -2,9 +2,11 @@ package usecase
 
 import (
 	"context"
+	"strconv"
 
 	"gitlab.warungpintar.co/sales-platform/brook/domain/dto"
 	"gitlab.warungpintar.co/sales-platform/brook/internal/constants"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type SendOTPRequest struct {
@@ -58,16 +60,19 @@ func (s *Service) Verify(ctx context.Context, body *VerifyOTPRequest) (dto.SendO
 
 func (s *Service) Login(ctx context.Context, body *LoginRequest) (dto.Login, error) {
 	var d dto.Login
+	p := strconv.Itoa(body.Pin)
 
-	// user, err := s.orders.FindByEmployeeId(ctx, body.OwnerId)
-	// if err != nil {
-	// 	return d, err
-	// }
+	user, err := s.orders.FindByEmployeeId(ctx, body.OwnerId)
+	if err != nil {
+		return d, err
+	}
 
-	// err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Pin))
-	// if err != nil {
-	// 	return d, err
-	// }
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(p))
+	if err != nil {
+		return d, err
+	}
+
+	d.User = *user
 
 	return d, nil
 }
