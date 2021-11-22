@@ -4,19 +4,19 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"gitlab.warungpintar.co/sales-platform/brook/domain/usecase"
+	"gitlab.warungpintar.co/sales-platform/brook/domain/otp/dto"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/response"
 )
 
 func (p *Public) OTP(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
 	decoder := json.NewDecoder(r.Body)
-	var request usecase.SendOTPRequest
+	var request dto.SendOTPRequest
 	err := decoder.Decode(&request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
 
-	otp, err := p.service.SendOTP(r.Context(), &request)
+	otp, err := p.service.Otp.SendOTP(r.Context(), &request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
@@ -25,13 +25,13 @@ func (p *Public) OTP(w http.ResponseWriter, r *http.Request) response.HTTPRespon
 
 func (p *Public) VerifyOTP(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
 	decoder := json.NewDecoder(r.Body)
-	var request usecase.VerifyOTPRequest
+	var request dto.VerifyOTPRequest
 	err := decoder.Decode(&request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
 
-	otp, err := p.service.Verify(r.Context(), &request)
+	otp, err := p.service.Otp.Verify(r.Context(), &request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
@@ -40,13 +40,13 @@ func (p *Public) VerifyOTP(w http.ResponseWriter, r *http.Request) response.HTTP
 
 func (p *Public) AuthLogin(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
 	decoder := json.NewDecoder(r.Body)
-	var request usecase.LoginRequest
+	var request dto.LoginRequest
 	err := decoder.Decode(&request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
 
-	otp, err := p.service.Login(r.Context(), &request)
+	otp, err := p.service.Otp.Login(r.Context(), &request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
