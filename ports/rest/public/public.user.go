@@ -2,7 +2,6 @@ package public
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
@@ -15,7 +14,6 @@ func (p *Public) RegisterUser(w http.ResponseWriter, r *http.Request) response.H
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
-	fmt.Printf("not a body: %+v", request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
