@@ -8,4 +8,5 @@ import (
 
 type Repository interface {
 	UserRegister(ctx context.Context, userData *entity.User) error
+	UserActivation(ctx context.Context, userData *entity.User) error
 }

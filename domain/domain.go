@@ -9,6 +9,7 @@ import (
 
 type UserDomainInterface interface {
 	UserRegister(ctx context.Context, userData *userEntity.User) error
+	UserActivation(ctx context.Context, userData *userEntity.User) error
 }
 
 type CompanyDomainInterface interface {
