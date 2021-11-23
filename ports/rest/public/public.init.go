@@ -23,6 +23,8 @@ func (p *Public) Register(rr router.Registrator) {
 	r := router.New(p.prefix, rr)
 	r.GET("/ping", p.PING)
 	r.POST("/user", p.RegisterUser)
+	r.PUT("/user/activate", p.ActivateUser)
+	r.POST("/company", p.RegisterCompany)
 	r.POST("/otp/send", p.OTP)
 	r.POST("/otp/verify", p.VerifyOTP)
 	r.POST("/otp/login", p.AuthLogin)

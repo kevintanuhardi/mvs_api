@@ -31,3 +31,18 @@ func (r *repo) FindByEmployeeId(ctx context.Context, employeeId string) (*entity
 	}
 	return &user, nil
 }
+
+func (r *repo) UserActivation(ctx context.Context, userData *entity.User) error {
+	user := entity.User{}
+
+	err := r.db.Where(map[string]interface{}{"employee_id": userData.EmployeeId, "active": 0}).First(&user).Error
+	if err != nil {
+		return constants.GetErrDatabaseError()
+	}
+
+	err = r.db.Model(&user).Where("employee_id = ?", userData.EmployeeId).Update("active", true).Error
+	if err != nil {
+		return constants.GetErrDatabaseError()
+	}
+	return nil
+}

@@ -9,9 +9,11 @@ import (
 	"gitlab.warungpintar.co/sales-platform/brook/adapter"
 	"gitlab.warungpintar.co/sales-platform/brook/config"
 	"gitlab.warungpintar.co/sales-platform/brook/domain"
+	userDomain "gitlab.warungpintar.co/sales-platform/brook/domain/user"
+	companyDomain "gitlab.warungpintar.co/sales-platform/brook/domain/company"
 	otpDomain "gitlab.warungpintar.co/sales-platform/brook/domain/otp"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user"
 	userMysql "gitlab.warungpintar.co/sales-platform/brook/domain/user/repository/mysql"
+	companyMysql "gitlab.warungpintar.co/sales-platform/brook/domain/company/repository/mysql"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/middleware"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
@@ -79,8 +81,10 @@ func getWebRegistrator(service domain.DomainService) []webservice.WebRegistrator
 }
 func initService(db *gorm.DB) domain.DomainService {
 	return domain.NewDomain(
-		user.NewUser(config.Config{},
+		userDomain.NewUser(config.Config{},
 			userMysql.NewRepository(db)),
+		companyDomain.NewCompany(config.Config{},
+			companyMysql.NewRepository(db)),
 		otpDomain.NewOtp(config.Config{},
 			userMysql.NewRepository(db)),
 	)

@@ -14,6 +14,7 @@ type Service struct {
 
 type ServiceManager interface {
 	UserRegister(ctx context.Context, userData *entity.User) error
+	UserActivation(ctx context.Context, userData *entity.User) error
 }
 
 func NewService(user repository.Repository) *Service {
@@ -23,11 +24,20 @@ func NewService(user repository.Repository) *Service {
 func (s *Service) UserRegister(ctx context.Context, userData *entity.User) error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(userData.Password), bcrypt.DefaultCost)
 	if err != nil {
-			panic(err)
+		panic(err)
 	}
 	userData.Password = string(hashedPassword)
 
 	err = s.users.UserRegister(ctx, userData)
+	if err != nil {
+		return err
+	}
+	return  nil
+}
+
+
+func (s *Service) UserActivation(ctx context.Context, userData *entity.User) error {
+	err := s.users.UserActivation(ctx, userData)
 	if err != nil {
 		return err
 	}
