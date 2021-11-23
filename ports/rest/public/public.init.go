@@ -23,6 +23,9 @@ func (p *Public) Register(rr router.Registrator) {
 	r := router.New(p.prefix, rr)
 	r.GET("/ping", p.PING)
 	r.POST("/user", p.RegisterUser)
+	r.POST("/otp/send", p.OTP)
+	r.POST("/otp/verify", p.VerifyOTP)
+	r.POST("/otp/login", p.AuthLogin)
 }
 
 func (p *Public) PING(w http.ResponseWriter, r *http.Request) response.HTTPResponse {

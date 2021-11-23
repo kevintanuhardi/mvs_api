@@ -35,6 +35,36 @@ func (m *MockRepository) EXPECT() *MockRepositoryMockRecorder {
 	return m.recorder
 }
 
+// FindByEmployeeId mocks base method.
+func (m *MockRepository) FindByEmployeeId(ctx context.Context, phoneNumber string) (*entity.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByEmployeeId", ctx, phoneNumber)
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByEmployeeId indicates an expected call of FindByEmployeeId.
+func (mr *MockRepositoryMockRecorder) FindByEmployeeId(ctx, phoneNumber interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByEmployeeId", reflect.TypeOf((*MockRepository)(nil).FindByEmployeeId), ctx, phoneNumber)
+}
+
+// FindByPhoneNumber mocks base method.
+func (m *MockRepository) FindByPhoneNumber(ctx context.Context, phoneNumber string) (*entity.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByPhoneNumber", ctx, phoneNumber)
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByPhoneNumber indicates an expected call of FindByPhoneNumber.
+func (mr *MockRepositoryMockRecorder) FindByPhoneNumber(ctx, phoneNumber interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByPhoneNumber", reflect.TypeOf((*MockRepository)(nil).FindByPhoneNumber), ctx, phoneNumber)
+}
+
 // UserRegister mocks base method.
 func (m *MockRepository) UserRegister(ctx context.Context, userData *entity.User) error {
 	m.ctrl.T.Helper()
