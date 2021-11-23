@@ -35,6 +35,20 @@ func (m *MockServiceManager) EXPECT() *MockServiceManagerMockRecorder {
 	return m.recorder
 }
 
+// UserActivation mocks base method.
+func (m *MockServiceManager) UserActivation(ctx context.Context, userData *entity.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UserActivation", ctx, userData)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UserActivation indicates an expected call of UserActivation.
+func (mr *MockServiceManagerMockRecorder) UserActivation(ctx, userData interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserActivation", reflect.TypeOf((*MockServiceManager)(nil).UserActivation), ctx, userData)
+}
+
 // UserRegister mocks base method.
 func (m *MockServiceManager) UserRegister(ctx context.Context, userData *entity.User) error {
 	m.ctrl.T.Helper()

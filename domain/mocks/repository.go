@@ -36,6 +36,20 @@ func (m *MockUserDomainInterface) EXPECT() *MockUserDomainInterfaceMockRecorder 
 	return m.recorder
 }
 
+// UserActivation mocks base method.
+func (m *MockUserDomainInterface) UserActivation(ctx context.Context, userData *entity0.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UserActivation", ctx, userData)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UserActivation indicates an expected call of UserActivation.
+func (mr *MockUserDomainInterfaceMockRecorder) UserActivation(ctx, userData interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserActivation", reflect.TypeOf((*MockUserDomainInterface)(nil).UserActivation), ctx, userData)
+}
+
 // UserRegister mocks base method.
 func (m *MockUserDomainInterface) UserRegister(ctx context.Context, userData *entity0.User) error {
 	m.ctrl.T.Helper()
