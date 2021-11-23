@@ -11,6 +11,7 @@ import (
 	"gitlab.warungpintar.co/sales-platform/brook/domain"
 	userDomain "gitlab.warungpintar.co/sales-platform/brook/domain/user"
 	companyDomain "gitlab.warungpintar.co/sales-platform/brook/domain/company"
+	otpDomain "gitlab.warungpintar.co/sales-platform/brook/domain/otp"
 	userMysql "gitlab.warungpintar.co/sales-platform/brook/domain/user/repository/mysql"
 	companyMysql "gitlab.warungpintar.co/sales-platform/brook/domain/company/repository/mysql"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
@@ -84,6 +85,8 @@ func initService(db *gorm.DB) domain.DomainService {
 			userMysql.NewRepository(db)),
 		companyDomain.NewCompany(config.Config{},
 			companyMysql.NewRepository(db)),
+		otpDomain.NewOtp(config.Config{},
+			userMysql.NewRepository(db)),
 	)
 }
 func AppWithGorm(cfg *Config) (*gorm.DB, error) {
