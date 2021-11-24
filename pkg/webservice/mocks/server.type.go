@@ -5,35 +5,36 @@
 package mocks
 
 import (
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
 	router "gitlab.warungpintar.co/sales-platform/brook/pkg/router"
-	reflect "reflect"
 )
 
-// MockWebService is a mock of WebService interface
+// MockWebService is a mock of WebService interface.
 type MockWebService struct {
 	ctrl     *gomock.Controller
 	recorder *MockWebServiceMockRecorder
 }
 
-// MockWebServiceMockRecorder is the mock recorder for MockWebService
+// MockWebServiceMockRecorder is the mock recorder for MockWebService.
 type MockWebServiceMockRecorder struct {
 	mock *MockWebService
 }
 
-// NewMockWebService creates a new mock instance
+// NewMockWebService creates a new mock instance.
 func NewMockWebService(ctrl *gomock.Controller) *MockWebService {
 	mock := &MockWebService{ctrl: ctrl}
 	mock.recorder = &MockWebServiceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockWebService) EXPECT() *MockWebServiceMockRecorder {
 	return m.recorder
 }
 
-// Run mocks base method
+// Run mocks base method.
 func (m *MockWebService) Run() error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Run")
@@ -41,42 +42,42 @@ func (m *MockWebService) Run() error {
 	return ret0
 }
 
-// Run indicates an expected call of Run
+// Run indicates an expected call of Run.
 func (mr *MockWebServiceMockRecorder) Run() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Run", reflect.TypeOf((*MockWebService)(nil).Run))
 }
 
-// MockWebRegistrator is a mock of WebRegistrator interface
+// MockWebRegistrator is a mock of WebRegistrator interface.
 type MockWebRegistrator struct {
 	ctrl     *gomock.Controller
 	recorder *MockWebRegistratorMockRecorder
 }
 
-// MockWebRegistratorMockRecorder is the mock recorder for MockWebRegistrator
+// MockWebRegistratorMockRecorder is the mock recorder for MockWebRegistrator.
 type MockWebRegistratorMockRecorder struct {
 	mock *MockWebRegistrator
 }
 
-// NewMockWebRegistrator creates a new mock instance
+// NewMockWebRegistrator creates a new mock instance.
 func NewMockWebRegistrator(ctrl *gomock.Controller) *MockWebRegistrator {
 	mock := &MockWebRegistrator{ctrl: ctrl}
 	mock.recorder = &MockWebRegistratorMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockWebRegistrator) EXPECT() *MockWebRegistratorMockRecorder {
 	return m.recorder
 }
 
-// Register mocks base method
+// Register mocks base method.
 func (m *MockWebRegistrator) Register(router router.Registrator) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Register", router)
 }
 
-// Register indicates an expected call of Register
+// Register indicates an expected call of Register.
 func (mr *MockWebRegistratorMockRecorder) Register(router interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Register", reflect.TypeOf((*MockWebRegistrator)(nil).Register), router)
