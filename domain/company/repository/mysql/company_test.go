@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
 	"gitlab.warungpintar.co/sales-platform/brook/adapter"
+	"gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
 	"gorm.io/gorm"
 )
 
@@ -24,19 +24,19 @@ func openDB() (*gorm.DB, error) {
 
 func createCompany(t *testing.T, db *gorm.DB) {
 	company := &entity.Company{
-		Code: "ASD",
-		Name: "Riot",
-		Address: "Riot Street 1234",
-		Country: "US",
-		Province: "California",
-		City: "LA",
-		District: "Rawa Buntu",
-		Village: "Breeze",
-		PostalCode: "123123",
+		Code:        "ASD",
+		Name:        "Riot",
+		Address:     "Riot Street 1234",
+		Country:     "US",
+		Province:    "California",
+		City:        "LA",
+		District:    "Rawa Buntu",
+		Village:     "Breeze",
+		PostalCode:  "123123",
 		PhoneNumber: "+6211111111",
-		FaxNumber: "+6211111111",
-		NPWP: "npwnwpwnwpp",
-		SPPKP: "skipipiw",
+		FaxNumber:   "+6211111111",
+		NPWP:        "npwnwpwnwpp",
+		SPPKP:       "skipipiw",
 	}
 
 	// Adding data
@@ -75,19 +75,19 @@ func Test_repo_CompanyRegister(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				companyData: &entity.Company{
-					Code: "ASD2",
-					Name: "Riot",
-					Address: "Riot Street 1234",
-					Country: "US",
-					Province: "California",
-					City: "LA",
-					District: "Rawa Buntu",
-					Village: "Breeze",
-					PostalCode: "123123",
+					Code:        "ASD2",
+					Name:        "Riot",
+					Address:     "Riot Street 1234",
+					Country:     "US",
+					Province:    "California",
+					City:        "LA",
+					District:    "Rawa Buntu",
+					Village:     "Breeze",
+					PostalCode:  "123123",
 					PhoneNumber: "+6211111111",
-					FaxNumber: "+6211111111",
-					NPWP: "npwnwpwnwpp",
-					SPPKP: "skipipiw",
+					FaxNumber:   "+6211111111",
+					NPWP:        "npwnwpwnwpp",
+					SPPKP:       "skipipiw",
 				},
 			},
 			wantErr: false,
@@ -98,7 +98,7 @@ func Test_repo_CompanyRegister(t *testing.T) {
 				db: gormDB,
 			},
 			args: args{
-				ctx: context.Background(),
+				ctx:         context.Background(),
 				companyData: nil,
 			},
 			wantErr: true,

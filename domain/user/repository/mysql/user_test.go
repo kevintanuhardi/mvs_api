@@ -174,7 +174,7 @@ func Test_repo_UserActivation(t *testing.T) {
 
 	tests := []struct {
 		name    string
-		fields       fields
+		fields  fields
 		args    args
 		wantErr bool
 	}{
@@ -186,7 +186,7 @@ func Test_repo_UserActivation(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				userData: &entity.User{
-					EmployeeId:  "JINX-666",
+					EmployeeId: "JINX-666",
 				},
 			},
 			wantErr: false,
@@ -199,7 +199,7 @@ func Test_repo_UserActivation(t *testing.T) {
 			args: args{
 				ctx: context.Background(),
 				userData: &entity.User{
-					EmployeeId:  "JINX-666",
+					EmployeeId: "JINX-666",
 				},
 			},
 			wantErr: true,
