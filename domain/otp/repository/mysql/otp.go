@@ -17,7 +17,7 @@ func (r *repo) CreateOrUpdateOtp(ctx context.Context, otpData *entity.Otp) error
 		}
 	}
 
-	err = r.db.Model(&otp).Where(map[string]interface{}{"owner_id": otpData.OwnerId, "type": "LOGIN"}).Update("otp", otpData.Otp).Error
+	err = r.db.Model(&otp).Where(map[string]interface{}{"owner_id": otpData.OwnerId, "type": "LOGIN"}).Updates(map[string]interface{}{"otp": otpData.Otp, "exp_time": otpData.ExpTime}).Error
 	if err != nil {
 		return constants.GetErrDatabaseError()
 	}
