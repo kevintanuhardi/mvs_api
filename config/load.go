@@ -16,7 +16,7 @@ func Load() *Config {
 	// Search config in config directory with name ".brook-backend" (without extension).
 	viper.AddConfigPath("./config")
 	viper.AddConfigPath("./../../../config") // load config from repository/mysql
-	viper.SetConfigName(".brook.yml")
+	viper.SetConfigName(".brook")
 
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv() // read in environment variables that match
