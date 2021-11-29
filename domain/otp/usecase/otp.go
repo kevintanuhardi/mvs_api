@@ -2,17 +2,21 @@ package usecase
 
 import (
 	"context"
+	"math/rand"
 	"strconv"
 
 	"gitlab.warungpintar.co/sales-platform/brook/domain/otp/dto"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/repository"
+	"gitlab.warungpintar.co/sales-platform/brook/domain/otp/entity"
+	otpRepo "gitlab.warungpintar.co/sales-platform/brook/domain/otp/repository"
 	userRepo "gitlab.warungpintar.co/sales-platform/brook/domain/user/repository"
 	"gitlab.warungpintar.co/sales-platform/brook/internal/constants"
+	"gitlab.warungpintar.co/sales-platform/brook/pkg/time"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type Service struct {
 	users userRepo.Repository
+	otps  otpRepo.Repository
 }
 
 type ServiceManager interface {
@@ -21,8 +25,8 @@ type ServiceManager interface {
 	Login(ctx context.Context, input *dto.LoginRequest) (dto.Login, error)
 }
 
-func NewService(user repository.Repository) *Service {
-	return &Service{user}
+func NewService(users userRepo.Repository, otps otpRepo.Repository) *Service {
+	return &Service{users, otps}
 }
 
 func (s *Service) SendOTP(ctx context.Context, body *dto.SendOTPRequest) (dto.SendOTP, error) {
@@ -30,13 +34,31 @@ func (s *Service) SendOTP(ctx context.Context, body *dto.SendOTPRequest) (dto.Se
 
 	user, err := s.users.FindByPhoneNumber(ctx, body.PhoneNumber)
 	if err != nil {
-		return d, err
+		return d, constants.GetCustomError("User not found.")
 	}
 
-	d.PhoneNumber = user.PhoneNumber
-	d.OwnerId = user.EmployeeId
-	d.Verified = false
-	d.Type = "LOGIN"
+	timestamp := time.GetCurrentTimeAdd15Min()
+
+	v := rand.Intn(9000-1000) + 1000
+
+	otp := entity.Otp{
+		OwnerId: user.EmployeeId,
+		Otp:     strconv.Itoa(v),
+		Type:    body.Type,
+		ExpTime: timestamp,
+	}
+
+	d = dto.SendOTP{
+		PhoneNumber: user.PhoneNumber,
+		OwnerId:     user.EmployeeId,
+		Verified:    false,
+		Type:        body.Type,
+	}
+
+	err = s.otps.CreateOrUpdateOtp(ctx, &otp)
+	if err != nil {
+		return d, err
+	}
 
 	return d, nil
 }
@@ -44,30 +66,40 @@ func (s *Service) SendOTP(ctx context.Context, body *dto.SendOTPRequest) (dto.Se
 func (s *Service) Verify(ctx context.Context, body *dto.VerifyOTPRequest) (dto.SendOTP, error) {
 	var d dto.SendOTP
 
-	if body.OTPCode != 1111 {
-		return d, constants.GetErrDatabaseError()
+	currentTimestamp := time.GetCurrentTime()
+
+	otp, err := s.otps.FindOtp(ctx, body.OwnerId, body.Type)
+	if err != nil {
+		return d, constants.GetCustomError("OTP Not Found.")
+	}
+
+	if otp.Otp != body.OTPCode {
+		return d, constants.GetCustomError("OTP Code Invalid.")
+	}
+
+	if currentTimestamp.After(otp.ExpTime) {
+		return d, constants.GetCustomError("OTP code expired. Please resend OTP code.")
 	}
 
 	d.PhoneNumber = body.PhoneNumber
 	d.OwnerId = body.OwnerId
 	d.Verified = true
-	d.Type = "LOGIN"
+	d.Type = body.Type
 
 	return d, nil
 }
 
 func (s *Service) Login(ctx context.Context, body *dto.LoginRequest) (dto.Login, error) {
 	var d dto.Login
-	p := strconv.Itoa(body.Pin)
 
 	user, err := s.users.FindByEmployeeId(ctx, body.OwnerId)
 	if err != nil {
-		return d, err
+		return d, constants.GetCustomError("User not found.")
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(p))
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
 	if err != nil {
-		return d, err
+		return d, constants.GetCustomError("Wrong Password!")
 	}
 
 	d.User = *user
