@@ -17,6 +17,7 @@ func Load() *Config {
 	viper.AddConfigPath("./config")
 	viper.AddConfigPath("./../../../config") // load config from repository/mysql
 	viper.SetConfigName(".brook")
+	viper.SetConfigType("yml")
 
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv() // read in environment variables that match
@@ -26,6 +27,8 @@ func Load() *Config {
 	if err := viper.ReadInConfig(); err != nil {
 		panic(fmt.Errorf("fatal error read config file: %w", err))
 	}
+
+	fmt.Println("Config Path: ", viper.ConfigFileUsed())
 
 	// Parse config to config struct
 	if err := viper.Unmarshal(&cfg, func(config *mapstructure.DecoderConfig) {
