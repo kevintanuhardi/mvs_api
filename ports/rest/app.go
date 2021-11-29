@@ -66,7 +66,7 @@ func getRouter(tracer opentracing.Tracer) router.Registrator {
 			tracer,
 			middleware.TraceConfig{
 				SkipURLPath: []string{
-					"/v1/healthz",
+					"/healthz",
 					"/metrics",
 				},
 			}),
