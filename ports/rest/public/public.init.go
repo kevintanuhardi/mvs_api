@@ -16,7 +16,7 @@ type Public struct {
 func NewHandler(service domain.DomainService) *Public {
 	return &Public{
 		service: service,
-		prefix:  "/api",
+		prefix:  "/brook/api",
 	}
 }
 func (p *Public) Register(rr router.Registrator) {
