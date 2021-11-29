@@ -21,7 +21,7 @@ func NewHandler(service domain.DomainService) *Public {
 }
 func (p *Public) Register(rr router.Registrator) {
 	r := router.New(p.prefix, rr)
-	r.GET("/ping", p.PING)
+	r.GET("/healthz", p.PING)
 	r.POST("/user", p.RegisterUser)
 	r.PUT("/user/activate", p.ActivateUser)
 	r.POST("/company", p.RegisterCompany)
