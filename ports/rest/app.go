@@ -9,11 +9,12 @@ import (
 	"gitlab.warungpintar.co/sales-platform/brook/adapter"
 	"gitlab.warungpintar.co/sales-platform/brook/config"
 	"gitlab.warungpintar.co/sales-platform/brook/domain"
-	userDomain "gitlab.warungpintar.co/sales-platform/brook/domain/user"
 	companyDomain "gitlab.warungpintar.co/sales-platform/brook/domain/company"
-	otpDomain "gitlab.warungpintar.co/sales-platform/brook/domain/otp"
-	userMysql "gitlab.warungpintar.co/sales-platform/brook/domain/user/repository/mysql"
 	companyMysql "gitlab.warungpintar.co/sales-platform/brook/domain/company/repository/mysql"
+	otpDomain "gitlab.warungpintar.co/sales-platform/brook/domain/otp"
+	otpMysql "gitlab.warungpintar.co/sales-platform/brook/domain/otp/repository/mysql"
+	userDomain "gitlab.warungpintar.co/sales-platform/brook/domain/user"
+	userMysql "gitlab.warungpintar.co/sales-platform/brook/domain/user/repository/mysql"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/middleware"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
@@ -86,7 +87,8 @@ func initService(db *gorm.DB) domain.DomainService {
 		companyDomain.NewCompany(config.Config{},
 			companyMysql.NewRepository(db)),
 		otpDomain.NewOtp(config.Config{},
-			userMysql.NewRepository(db)),
+			userMysql.NewRepository(db),
+			otpMysql.NewRepository(db)),
 	)
 }
 func AppWithGorm(cfg *Config) (*gorm.DB, error) {
