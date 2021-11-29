@@ -23,11 +23,12 @@ type SendOTPRequest struct {
 type VerifyOTPRequest struct {
 	PhoneNumber string `json:"phone_number"`
 	OwnerId     string `json:"owner_id"`
-	OTPCode     int    `json:"otp_code"`
+	OTPCode     string `json:"otp_code"`
+	Type        string `json:"type"`
 }
 
 type LoginRequest struct {
 	PhoneNumber string `json:"phone_number"`
 	OwnerId     string `json:"owner_id"`
-	Pin         int    `json:"pin"`
+	Password    string `json:"password"`
 }
