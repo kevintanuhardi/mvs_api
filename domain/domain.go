@@ -3,9 +3,9 @@ package domain
 import (
 	"context"
 
-	userEntity "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
 	companyEntity "gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
 	"gitlab.warungpintar.co/sales-platform/brook/domain/otp/dto"
+	userEntity "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
 )
 
 type UserDomainInterface interface {

@@ -5,7 +5,7 @@ import (
 
 	"gitlab.warungpintar.co/sales-platform/brook/adapter"
 	"gitlab.warungpintar.co/sales-platform/brook/config"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/usecase"
+	"gitlab.warungpintar.co/sales-platform/brook/domain"
 	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
 	pb "gitlab.warungpintar.co/sales-platform/brook/proto/brook"
 	"google.golang.org/grpc"
@@ -14,13 +14,13 @@ import (
 )
 
 type server struct {
-	Usecase                usecase.ServiceManager
+	Usecase                domain.DomainService
 	server                 *grpc.Server
 	GrpcPort               string
 	PrometheusPort         string
 	transformer            transformer
 	networkListen          networkListen
-	RegisterBrookServer RegisterBrookServer
+	RegisterBrookServer 		RegisterBrookServer
 	RegisterReflection     RegisterReflection
 	RegisterPrometheus     RegisterPrometheus
 }
