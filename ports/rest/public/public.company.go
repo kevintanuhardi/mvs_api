@@ -23,5 +23,5 @@ func (p *Public) RegisterCompany(w http.ResponseWriter, r *http.Request) respons
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
-	return response.NewJSONResponse().SetData("Success")
+	return response.NewJSONResponse().SetMessage("Success")
 }

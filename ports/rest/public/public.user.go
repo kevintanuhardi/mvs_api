@@ -22,7 +22,7 @@ func (p *Public) RegisterUser(w http.ResponseWriter, r *http.Request) response.H
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
-	return response.NewJSONResponse().SetData("Success")
+	return response.NewJSONResponse().SetMessage("Success")
 }
 
 func (p *Public) ActivateUser(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
@@ -38,5 +38,5 @@ func (p *Public) ActivateUser(w http.ResponseWriter, r *http.Request) response.H
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
-	return response.NewJSONResponse().SetData("Success")
+	return response.NewJSONResponse().SetMessage("Success")
 }

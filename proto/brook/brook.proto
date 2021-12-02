@@ -5,7 +5,12 @@ package brook;
 
 service brook {
   rpc Ping(PingRequest) returns (PingResponse) {}
-  rpc GetOrderList(GetOrderRequest) returns (GetOrderResponse) {}
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {}
+  rpc ActivateUser(ActivateUserRequest) returns (ActivateUserResponse) {}
+  rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
+  rpc SendOtp(SendOtpRequest) returns (SendOtpResponse) {}
+  rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse) {}
+  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
 }
 
 message PingRequest {
@@ -16,41 +21,86 @@ message PingResponse {
 
 }
 
-message GetOrderRequest{}
-message GetOrderResponse{
-    repeated Order order = 1;
-}
-message Order{
-    int64 id = 1 ;
-    int64 customerID = 2 ;
-    string trxID = 3;      
-    string status = 4;
-    int64 createdAt = 5;
-    int64 updatedAt = 6;
-    string timezone = 7;
-    repeated OrderStores orderStores = 8;
+message RegisterUserRequest {
+    string company_id = 1;
+    string role_id = 2;
+    string employee_id = 3;
+    string active = 4;
+    string phone_number = 5;
+    string email = 6;
+    string password = 7;
 }
 
-message OrderStores{
-    int64 ID = 1;
-	int64 OrderID =2;
-	int64 storeID =3;
-    string storeTrxID =4;
-	int64 createdAt =5;
-	int64 updatedAt =6;
-    string timezone =7;
-    repeated OrderStoreItems orderStoreItems = 8;
+message RegisterUserResponse {
+    string message = 1; 
 }
 
-message OrderStoreItems{
-	int64 ID = 1;                  
-	int64 OrderStoreID = 2;        
-	string SKU = 3;              
-	string Name = 4;             
-	string Uom = 5;              
-	double Quantity = 6;        
-	double PriceUnit = 7;       
-	int64 CreatedAt = 8;     
-	int64 UpdatedAt = 9;     
-    string timezone =10;
+message ActivateUserRequest {
+    string company_id = 1;
+    string role_id = 2;
+    string employee_id = 3;
+    string active = 4;
+    string phone_number = 5;
+    string email = 6;
+    string password = 7;
+}
+
+message ActivateUserResponse {
+    string message = 1; 
+}
+
+message RegisterCompanyRequest {
+    string code = 1;
+    string name = 2;
+    string address = 3;
+    string country = 4;
+    string province = 5;
+    string city = 6;
+    string district = 7;
+    string village = 8;
+    string postal_code = 9;
+    string phone_number = 10;
+    string fax_number = 11;
+    string npwp = 12;
+    string sppkp = 13;
+}
+
+message RegisterCompanyResponse {
+    string message = 1; 
+}
+
+message SendOtpRequest {
+    string phone_number = 1;
+    string type = 2;
+}
+message SendOtpResponse {
+    string phone_number = 1;
+    string type = 2;
+    string owner_id = 3;
+    string verified = 4;
+}
+
+message VerifyOtpRequest {
+    string phone_number = 1;
+    string owner_id = 2;
+    string otp_code = 3;
+}
+
+message VerifyOtpResponse {
+    string phone_number = 1;
+    string type = 2;
+    string owner_id = 3;
+    string verified = 4;
+}
+
+message AuthLoginRequest {
+    string phone_number = 1;
+    string owner_id = 2;
+    string pin = 3;
+}
+
+message AuthLoginResponse {
+    string refresh_token = 1;
+    string token = 2;
+    string user = 3;
 }
