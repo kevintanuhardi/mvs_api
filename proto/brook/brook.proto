@@ -5,12 +5,7 @@ package brook;
 
 service brook {
   rpc Ping(PingRequest) returns (PingResponse) {}
-  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {}
-  rpc ActivateUser(ActivateUserRequest) returns (ActivateUserResponse) {}
   rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
-  rpc SendOtp(SendOtpRequest) returns (SendOtpResponse) {}
-  rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse) {}
-  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
 }
 
 message PingRequest {
