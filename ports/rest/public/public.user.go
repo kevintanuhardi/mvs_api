@@ -18,7 +18,7 @@ func (p *Public) RegisterUser(w http.ResponseWriter, r *http.Request) response.H
 		return response.NewJSONResponse().SetError(err)
 	}
 
-	err = p.service.User.UserRegister(r.Context(), &request)
+	_, err = p.service.User.UserRegister(r.Context(), &request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
