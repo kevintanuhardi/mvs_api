@@ -2,6 +2,7 @@ package entity
 
 type User struct {
 	ID *int `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
 	EmployeeId string	`json:"employee_id"`
 	CompanyId int `json:"company_id"`
 	RoleId int `json:"role_id"`
