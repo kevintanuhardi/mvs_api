@@ -9,7 +9,7 @@ import (
 )
 
 type UserDomainInterface interface {
-	UserRegister(ctx context.Context, userData *userEntity.User) error
+	UserRegister(ctx context.Context, userData *userEntity.User) (user *userEntity.User, err error)
 	UserActivation(ctx context.Context, userData *userEntity.User) error
 }
 

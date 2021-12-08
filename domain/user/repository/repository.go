@@ -7,7 +7,7 @@ import (
 )
 
 type Repository interface {
-	UserRegister(ctx context.Context, userData *entity.User) error
+	UserRegister(ctx context.Context, userData *entity.User) (user *entity.User, err error)
 	UserActivation(ctx context.Context, userData *entity.User) error
 	FindByPhoneNumber(ctx context.Context, phoneNumber string) (*entity.User, error)
 	FindByEmployeeId(ctx context.Context, phoneNumber string) (*entity.User, error)

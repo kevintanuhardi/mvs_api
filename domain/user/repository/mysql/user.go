@@ -7,11 +7,11 @@ import (
 	"gitlab.warungpintar.co/sales-platform/brook/internal/constants"
 )
 
-func (r *repo) UserRegister(ctx context.Context, userData *entity.User) error {
+func (r *repo) UserRegister(ctx context.Context, userData *entity.User) (user *entity.User, err error) {
 	if err := r.db.Create(userData).Error; err != nil {
-		return constants.GetErrDatabaseError()
+		return nil, constants.GetErrDatabaseError()
 	}
-	return nil
+	return userData, nil
 }
 
 func (r *repo) FindByPhoneNumber(ctx context.Context, phoneNumber string) (*entity.User, error) {
