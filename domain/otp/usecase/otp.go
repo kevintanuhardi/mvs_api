@@ -34,7 +34,10 @@ func (s *Service) SendOTP(ctx context.Context, body *dto.SendOTPRequest) (dto.Se
 
 	user, err := s.users.FindByPhoneNumber(ctx, body.PhoneNumber)
 	if err != nil {
-		return d, constants.GetCustomError("User not found.")
+		return d, err
+	}
+	if user == nil {
+		return d, constants.GetUserNotFoundError()
 	}
 
 	timestamp := time.GetCurrentTimeAdd15Min()

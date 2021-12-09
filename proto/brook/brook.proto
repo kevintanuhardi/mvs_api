@@ -3,15 +3,27 @@ syntax = "proto3";
 option go_package = "/brook";
 package brook;
 
+enum OtpType {
+    UNKWOWN = 0;
+    LOGIN = 1;
+    REGISTRATION = 2;
+}
+
+message OtpPayload {
+    string phone_number = 1;
+    OtpType type = 2;
+    string owner_id = 3;
+    bool verified = 4;
+}
+
 service brook {
-  rpc Ping(PingRequest) returns (PingResponse) {}
-  rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
+  rpc GetPing(PingRequest) returns (PingResponse) {}
   rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {}
   rpc ActivateUser(ActivateUserRequest) returns (ActivateUserResponse) {}
-//   rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
-//   rpc SendOtp(SendOtpRequest) returns (SendOtpResponse) {}
-//   rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse) {}
-//   rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
+  rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
+  rpc SendOtp(SendOtpRequest) returns (SendOtpResponse) {}
+  rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse) {}
+  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
 }
 
 message ErrorPayload {
@@ -114,13 +126,11 @@ message RegisterCompanyResponse {
 
 message SendOtpRequest {
     string phone_number = 1;
-    string type = 2;
+    OtpType type = 2;
 }
 message SendOtpResponse {
-    string phone_number = 1;
-    string type = 2;
-    string owner_id = 3;
-    string verified = 4;
+    OtpPayload otp = 1;
+    ErrorPayload error = 2;
 }
 
 message VerifyOtpRequest {

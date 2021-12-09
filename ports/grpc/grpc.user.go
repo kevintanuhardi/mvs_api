@@ -49,6 +49,7 @@ func (se *server) RegisterUser(ctx context.Context, request *pb.RegisterUserRequ
 			}
 		}
 	}
+	
 	user, err := se.Usecase.User.UserRegister(ctx, &parsedRequest)
 	if err != nil {
 		return &pb.RegisterUserResponse{
