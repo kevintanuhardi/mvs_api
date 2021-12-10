@@ -45,7 +45,7 @@ func (se *server) SendOtp(ctx context.Context, request *pb.SendOtpRequest) (*pb.
 						IsError: true,
 						ErrorType: "400",
 						HumanErrorTitle: "Error Send OTP",
-						HumanErrorMessage: constants.GetPhoneNumberNotNumericError().Error(),
+						HumanErrorMessage: constants.GetNotNumericError("nomor hp").Error(),
 					},
 				}, nil
 			} else {
@@ -63,12 +63,21 @@ func (se *server) SendOtp(ctx context.Context, request *pb.SendOtpRequest) (*pb.
 
 	otp, err := se.Usecase.Otp.SendOTP(ctx, &parsedRequest)
 	if err != nil {
+		var humanErrorMessage string
+		var serverMessage string
+		switch t := err.(type) {
+		case *constants.CustomError:
+			humanErrorMessage = t.Error()
+		default:
+			serverMessage = t.Error()
+	 }
 		return &pb.SendOtpResponse{
 			Error: &pb.ErrorPayload{
 				IsError: true,
 				ErrorType: "500",
 				HumanErrorTitle: "Error Send OTP",
-				ServerMessage: err.Error(),
+				ServerMessage: serverMessage,
+				HumanErrorMessage: humanErrorMessage,
 			},
 		}, nil
 	}

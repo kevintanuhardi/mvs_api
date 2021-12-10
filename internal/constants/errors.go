@@ -1,29 +1,52 @@
 package constants
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 func GetErrDatabaseError() error {
 	return errors.New("3001||database Error")
 }
 
-func GetDuplicateUserError() error {
-	return errors.New("user is already registered")
+type CustomError struct {
+	message string
+	// statusCode string
 }
 
-func GetUserNotFoundError() error {
-	return errors.New("nomor HP tidak ditemukan")
+func (ce *CustomError) Error() string {
+	return ce.message
 }
 
-func GetPhoneNumberMinError() error {
-	return errors.New("penulisan nomor HP minimal 10 digit. Silakan coba lagi")
+
+func GetDuplicateUserError() *CustomError {
+	return &CustomError {
+		message: "user is already registered",
+	}
 }
 
-func GetPhoneNumberMaxError() error {
-	return errors.New("nomor HP melebihi batas maksimum karakter")
+func GetUserNotFoundError() *CustomError {
+	return &CustomError {
+		message: "nomor HP tidak ditemukan",
+	}
 }
 
-func GetPhoneNumberNotNumericError() error {
-	return errors.New("nomor HP harus dalam karakter numerik 0-9" )
+func GetPhoneNumberMinError() *CustomError {
+	return &CustomError {
+		message: "penulisan nomor HP minimal 10 digit. Silakan coba lagi",
+	}
+}
+
+func GetPhoneNumberMaxError() *CustomError {
+	return &CustomError {
+		message: "nomor HP melebihi batas maksimum karakter",
+	}
+}
+
+func GetNotNumericError(field string) *CustomError {
+	return &CustomError {
+		message: fmt.Sprintf("%s harus dalam karakter numerik 0-9", field) ,
+	}
 }
 
 func GetCustomError(message string) error {
