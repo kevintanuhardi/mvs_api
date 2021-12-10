@@ -83,7 +83,8 @@ func getWebRegistrator(service domain.DomainService) []webservice.WebRegistrator
 func initService(db *gorm.DB) domain.DomainService {
 	return domain.NewDomain(
 		userDomain.NewUser(config.Config{},
-			userMysql.NewRepository(db)),
+			userMysql.NewRepository(db),
+			companyMysql.NewRepository(db)),
 		companyDomain.NewCompany(config.Config{},
 			companyMysql.NewRepository(db)),
 		otpDomain.NewOtp(config.Config{},

@@ -4,6 +4,7 @@ CREATE TABLE `user`
     `id`            int(11)      NOT NULL AUTO_INCREMENT,
     `employee_id`   varchar(40)      NOT NULL,
     `company_id`		int(11) NOT NULL,
+    `name`   varchar(63)      NOT NULL,
     `active`        boolean			  NOT NULL,
     `phone_number`	varchar(25)			  NOT NULL,
     `email`					varchar(40)			  NOT NULL,

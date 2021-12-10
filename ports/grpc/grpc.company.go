@@ -7,7 +7,8 @@ import (
 )
 
 func (se *server) RegisterCompany(context.Context, *pb.RegisterCompanyRequest) (*pb.RegisterCompanyResponse, error) {
+
 	return &pb.RegisterCompanyResponse{
-		Message: "pong",
+		Message: "Success",
 	}, nil
 }
