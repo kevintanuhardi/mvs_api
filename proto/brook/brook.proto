@@ -137,23 +137,23 @@ message VerifyOtpRequest {
     string phone_number = 1;
     string owner_id = 2;
     string otp_code = 3;
+    OtpType type = 4;
 }
 
 message VerifyOtpResponse {
-    string phone_number = 1;
-    string type = 2;
-    string owner_id = 3;
-    string verified = 4;
+    OtpPayload otp = 1;
+    ErrorPayload error = 2;
 }
 
 message AuthLoginRequest {
     string phone_number = 1;
     string owner_id = 2;
-    string pin = 3;
+    string password = 3;
 }
 
 message AuthLoginResponse {
     string refresh_token = 1;
     string token = 2;
-    string user = 3;
+    UserInfo user = 3;
+    ErrorPayload error = 4;
 }

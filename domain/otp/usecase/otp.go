@@ -73,15 +73,15 @@ func (s *Service) Verify(ctx context.Context, body *dto.VerifyOTPRequest) (dto.S
 
 	otp, err := s.otps.FindOtp(ctx, body.OwnerId, body.Type)
 	if err != nil {
-		return d, constants.GetCustomError("OTP Not Found.")
+		return d, err
 	}
 
 	if otp.Otp != body.OTPCode {
-		return d, constants.GetCustomError("OTP Code Invalid.")
+		return d, constants.GetOtpNotFoundError()
 	}
 
 	if currentTimestamp.After(otp.ExpTime) {
-		return d, constants.GetCustomError("OTP code expired. Please resend OTP code.")
+		return d, constants.GetOtpExpiredError()
 	}
 
 	d.PhoneNumber = body.PhoneNumber
@@ -102,7 +102,7 @@ func (s *Service) Login(ctx context.Context, body *dto.LoginRequest) (dto.Login,
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
 	if err != nil {
-		return d, constants.GetCustomError("Wrong Password!")
+		return d, constants.GetWrongPassError()
 	}
 
 	d.User = *user
