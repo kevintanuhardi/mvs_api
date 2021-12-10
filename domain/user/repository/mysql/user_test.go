@@ -8,6 +8,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"gitlab.warungpintar.co/sales-platform/brook/adapter"
+	"gitlab.warungpintar.co/sales-platform/brook/domain/user/dto"
 	"gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
 	"gorm.io/gorm"
 )
@@ -26,6 +27,7 @@ func openDB() (*gorm.DB, error) {
 func createUser(t *testing.T, db *gorm.DB) {
 	user := &entity.User{
 		EmployeeId:  "JINX-666",
+		Name:        "Budi",
 		CompanyId:   1,
 		Active:      false,
 		PhoneNumber: "08123123123123",
@@ -93,7 +95,7 @@ func Test_repo_UserRegister(t *testing.T) {
 			// 	db: tt.fields.db,
 			// }
 			r := NewRepository(tt.fields.db)
-			if err := r.UserRegister(tt.args.ctx, tt.args.userData); (err != nil) != tt.wantErr {
+			if _, err := r.UserRegister(tt.args.ctx, tt.args.userData); (err != nil) != tt.wantErr {
 				t.Errorf("repo.UserRegister() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			t.Cleanup(func() {
@@ -167,7 +169,7 @@ func Test_repo_UserActivation(t *testing.T) {
 
 	type args struct {
 		ctx      context.Context
-		userData *entity.User
+		userData *dto.UserActivateRequest
 	}
 
 	createUser(t, gormDB)
@@ -185,11 +187,40 @@ func Test_repo_UserActivation(t *testing.T) {
 			},
 			args: args{
 				ctx: context.Background(),
-				userData: &entity.User{
-					EmployeeId: "JINX-666",
+				userData: &dto.UserActivateRequest{
+					EmployeeId:  "JINX-666",
+					CompanyCode: "ASD",
 				},
 			},
 			wantErr: false,
+		},
+		{
+			name: "Should return Company Code tidak ditemukan",
+			fields: fields{
+				db: gormDB,
+			},
+			args: args{
+				ctx: context.Background(),
+				userData: &dto.UserActivateRequest{
+					EmployeeId:  "JINX-666",
+					CompanyCode: "",
+				},
+			},
+			wantErr: true,
+		},
+		{
+			name: "Should return BFF ID tidak ditemukan",
+			fields: fields{
+				db: gormDB,
+			},
+			args: args{
+				ctx: context.Background(),
+				userData: &dto.UserActivateRequest{
+					EmployeeId:  "",
+					CompanyCode: "ASD",
+				},
+			},
+			wantErr: true,
 		},
 		{
 			name: "Failed to activate user with active = 1",
@@ -198,8 +229,9 @@ func Test_repo_UserActivation(t *testing.T) {
 			},
 			args: args{
 				ctx: context.Background(),
-				userData: &entity.User{
-					EmployeeId: "JINX-666",
+				userData: &dto.UserActivateRequest{
+					EmployeeId:  "JINX-666",
+					CompanyCode: "ASD",
 				},
 			},
 			wantErr: true,
@@ -208,7 +240,7 @@ func Test_repo_UserActivation(t *testing.T) {
 	for _, tt := range tests {
 		r := NewRepository(tt.fields.db)
 		t.Run(tt.name, func(t *testing.T) {
-			if err := r.UserActivation(tt.args.ctx, tt.args.userData); (err != nil) != tt.wantErr {
+			if _, err := r.UserActivation(tt.args.ctx, tt.args.userData); (err != nil) != tt.wantErr {
 				t.Errorf("repo.UserActivation() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

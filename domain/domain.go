@@ -3,14 +3,15 @@ package domain
 import (
 	"context"
 
-	companyEntity "gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
 	"gitlab.warungpintar.co/sales-platform/brook/domain/otp/dto"
+	userDto "gitlab.warungpintar.co/sales-platform/brook/domain/user/dto"
+	companyEntity "gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
 	userEntity "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
 )
 
 type UserDomainInterface interface {
-	UserRegister(ctx context.Context, userData *userEntity.User) error
-	UserActivation(ctx context.Context, userData *userEntity.User) error
+	UserRegister(ctx context.Context, userData *userEntity.User) (user *userEntity.User, err error)
+	UserActivation(ctx context.Context, input *userDto.UserActivateRequest) (user *userEntity.User, company *companyEntity.Company, err error)
 }
 
 type CompanyDomainInterface interface {

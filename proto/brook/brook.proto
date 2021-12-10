@@ -5,48 +5,91 @@ package brook;
 
 service brook {
   rpc Ping(PingRequest) returns (PingResponse) {}
+  rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
   rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {}
   rpc ActivateUser(ActivateUserRequest) returns (ActivateUserResponse) {}
-  rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
-  rpc SendOtp(SendOtpRequest) returns (SendOtpResponse) {}
-  rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse) {}
-  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
+//   rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
+//   rpc SendOtp(SendOtpRequest) returns (SendOtpResponse) {}
+//   rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse) {}
+//   rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
 }
+
+message ErrorPayload {
+    bool is_error = 1;
+    bool is_show_popup = 2;
+    string error_type = 3;
+    string human_error_title = 4;
+    string human_error_message = 5;
+    string server_message = 6;
+}
+  
 
 message PingRequest {
     string request = 1;
 }
 message PingResponse {
     string message = 1;
+}
 
+message Company {
+    int32 id = 1;
+    string code = 2;
+    string name = 3;
+    string address = 4;
+    string country = 5;
+    string province = 6;
+    string city = 7;
+    string district = 8;
+    string village = 9;
+    string postal_code = 10;
+    string phone_number = 11;
+    string fax_number = 12;
+    string npwp = 13;
+    string sppkp = 14;
+}
+
+message Branch {
+    int32 id = 1;
+    string name = 2;
+    Company company = 3;
 }
 
 message RegisterUserRequest {
-    string company_id = 1;
-    string role_id = 2;
+    int32 company_id = 1;
+    int32 role_id = 2;
     string employee_id = 3;
-    string active = 4;
+    bool active = 4;
     string phone_number = 5;
     string email = 6;
     string password = 7;
+    string name = 8;
+}
+
+message UserInfo {
+    int32 company_id = 1;
+    int32 role_id = 2;
+    string employee_id = 3;
+    bool active = 4;
+    string phone_number = 5;
+    string email = 6;
+    string name = 7;
+    Branch branch = 8;
+    Company company = 9;
 }
 
 message RegisterUserResponse {
-    string message = 1; 
+    UserInfo user = 1;
+    ErrorPayload error = 2;
 }
 
 message ActivateUserRequest {
-    string company_id = 1;
-    string role_id = 2;
-    string employee_id = 3;
-    string active = 4;
-    string phone_number = 5;
-    string email = 6;
-    string password = 7;
+    string company_code = 1;
+    string employee_id = 2;
 }
 
 message ActivateUserResponse {
-    string message = 1; 
+    UserInfo user = 1;
+    ErrorPayload error = 2;
 }
 
 message RegisterCompanyRequest {
