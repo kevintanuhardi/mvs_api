@@ -4,8 +4,9 @@ import (
 	"context"
 
 	validator "github.com/go-playground/validator/v10"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
 	"gitlab.warungpintar.co/sales-platform/brook/domain/user/dto"
+	"gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	"gitlab.warungpintar.co/sales-platform/brook/internal/constants"
 	pb "gitlab.warungpintar.co/sales-platform/brook/proto/brook"
 )
 
@@ -94,7 +95,7 @@ func (se *server) ActivateUser(ctx context.Context, request *pb.ActivateUserRequ
 					IsError: true,
 					ErrorType: "400",
 					HumanErrorTitle: "Error Aktivasi Sales",
-					ServerMessage: e.Error(),
+					HumanErrorMessage: e.Error(),
 				},
 			}, nil
 		}
@@ -102,12 +103,25 @@ func (se *server) ActivateUser(ctx context.Context, request *pb.ActivateUserRequ
 
 	user, company, err := se.Usecase.User.UserActivation(ctx, &parsedRequest)
 	if err != nil {
+		var humanErrorMessage string
+		var serverMessage string
+		var errorType string
+		switch t := err.(type) {
+		case *constants.CustomError:
+			humanErrorMessage = t.Error()
+			errorType = "400"
+		default:
+			serverMessage = t.Error()
+			errorType = "500"
+		}
+
 		return &pb.ActivateUserResponse{
 			Error: &pb.ErrorPayload{
 				IsError: true,
-				ErrorType: "400",
+				ErrorType: errorType,
 				HumanErrorTitle: "Error Aktivasi Sales",
-				ServerMessage: err.Error(),
+				ServerMessage:     serverMessage,
+				HumanErrorMessage: humanErrorMessage,
 			},
 		}, nil
 	}
