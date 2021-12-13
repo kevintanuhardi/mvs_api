@@ -22,6 +22,9 @@ func (r *repo) FindByPhoneNumber(ctx context.Context, phoneNumber string) (*enti
 	user := entity.User{}
 
 	if err := r.db.First(&user, entity.User{PhoneNumber: phoneNumber}).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, nil
+		}
 		return &user, constants.GetErrDatabaseError()
 	}
 	return &user, nil

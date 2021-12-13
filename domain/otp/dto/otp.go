@@ -16,19 +16,19 @@ type Login struct {
 }
 
 type SendOTPRequest struct {
-	PhoneNumber string `json:"phone_number"`
-	Type        string `json:"type"`
+	PhoneNumber string `json:"phone_number" validate:"required,numeric,min=9,max=14"`
+	Type        string `json:"type" validate:"required"`
 }
 
 type VerifyOTPRequest struct {
-	PhoneNumber string `json:"phone_number"`
-	OwnerId     string `json:"owner_id"`
-	OTPCode     string `json:"otp_code"`
-	Type        string `json:"type"`
+	PhoneNumber string `json:"phone_number" validate:"required,numeric,min=9,max=14"`
+	OwnerId     string `json:"owner_id" validate:"required,numeric"`
+	OTPCode     string `json:"otp_code" validate:"required,numeric"`
+	Type        string `json:"type" validate:"required"`
 }
 
 type LoginRequest struct {
-	PhoneNumber string `json:"phone_number"`
-	OwnerId     string `json:"owner_id"`
-	Password    string `json:"password"`
+	PhoneNumber string `json:"phone_number" validate:"required,numeric,min=9,max=14"`
+	OwnerId     string `json:"owner_id" validate:"required,numeric"`
+	Password    string `json:"password" validate:"required,numeric"`
 }
