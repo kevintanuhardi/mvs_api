@@ -13,6 +13,12 @@ test: proto
 	@echo "  >  Testing Program..."
 	go test -race ./...
 
+## test: test mysql service
+.PHONY: test-service
+test-service: proto
+	@echo "  >  Testing Program..."
+	go test -v ./domain/user/repository/mysql
+
 ## coverage: coverage program
 .PHONY: coverage
 coverage: ## Generate global code coverage report

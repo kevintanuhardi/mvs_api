@@ -3,54 +3,157 @@ syntax = "proto3";
 option go_package = "/brook";
 package brook;
 
-service brook {
-  rpc Ping(PingRequest) returns (PingResponse) {}
-  rpc GetOrderList(GetOrderRequest) returns (GetOrderResponse) {}
+enum OtpType {
+    UNKWOWN = 0;
+    LOGIN = 1;
+    REGISTRATION = 2;
 }
+
+message OtpPayload {
+    string phone_number = 1;
+    OtpType type = 2;
+    string owner_id = 3;
+    bool verified = 4;
+}
+
+service brook {
+  rpc GetPing(PingRequest) returns (PingResponse) {}
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {}
+  rpc ActivateUser(ActivateUserRequest) returns (ActivateUserResponse) {}
+  rpc RegisterCompany(RegisterCompanyRequest) returns (RegisterCompanyResponse) {}
+  rpc SendOtp(SendOtpRequest) returns (SendOtpResponse) {}
+  rpc VerifyOtp(VerifyOtpRequest) returns (VerifyOtpResponse) {}
+  rpc AuthLogin(AuthLoginRequest) returns (AuthLoginResponse) {}
+}
+
+message ErrorPayload {
+    bool is_error = 1;
+    bool is_show_popup = 2;
+    string error_type = 3;
+    string human_error_title = 4;
+    string human_error_message = 5;
+    string server_message = 6;
+}
+  
 
 message PingRequest {
     string request = 1;
 }
 message PingResponse {
     string message = 1;
-
 }
 
-message GetOrderRequest{}
-message GetOrderResponse{
-    repeated Order order = 1;
-}
-message Order{
-    int64 id = 1 ;
-    int64 customerID = 2 ;
-    string trxID = 3;      
-    string status = 4;
-    int64 createdAt = 5;
-    int64 updatedAt = 6;
-    string timezone = 7;
-    repeated OrderStores orderStores = 8;
-}
-
-message OrderStores{
-    int64 ID = 1;
-	int64 OrderID =2;
-	int64 storeID =3;
-    string storeTrxID =4;
-	int64 createdAt =5;
-	int64 updatedAt =6;
-    string timezone =7;
-    repeated OrderStoreItems orderStoreItems = 8;
+message Company {
+    int32 id = 1;
+    string code = 2;
+    string name = 3;
+    string address = 4;
+    string country = 5;
+    string province = 6;
+    string city = 7;
+    string district = 8;
+    string village = 9;
+    string postal_code = 10;
+    string phone_number = 11;
+    string fax_number = 12;
+    string npwp = 13;
+    string sppkp = 14;
 }
 
-message OrderStoreItems{
-	int64 ID = 1;                  
-	int64 OrderStoreID = 2;        
-	string SKU = 3;              
-	string Name = 4;             
-	string Uom = 5;              
-	double Quantity = 6;        
-	double PriceUnit = 7;       
-	int64 CreatedAt = 8;     
-	int64 UpdatedAt = 9;     
-    string timezone =10;
+message Branch {
+    int32 id = 1;
+    string name = 2;
+    Company company = 3;
+}
+
+message RegisterUserRequest {
+    int32 company_id = 1;
+    int32 role_id = 2;
+    string employee_id = 3;
+    bool active = 4;
+    string phone_number = 5;
+    string email = 6;
+    string password = 7;
+    string name = 8;
+}
+
+message UserInfo {
+    int32 company_id = 1;
+    int32 role_id = 2;
+    string employee_id = 3;
+    bool active = 4;
+    string phone_number = 5;
+    string email = 6;
+    string name = 7;
+    Branch branch = 8;
+    Company company = 9;
+}
+
+message RegisterUserResponse {
+    UserInfo user = 1;
+    ErrorPayload error = 2;
+}
+
+message ActivateUserRequest {
+    string company_code = 1;
+    string employee_id = 2;
+}
+
+message ActivateUserResponse {
+    UserInfo user = 1;
+    ErrorPayload error = 2;
+}
+
+message RegisterCompanyRequest {
+    string code = 1;
+    string name = 2;
+    string address = 3;
+    string country = 4;
+    string province = 5;
+    string city = 6;
+    string district = 7;
+    string village = 8;
+    string postal_code = 9;
+    string phone_number = 10;
+    string fax_number = 11;
+    string npwp = 12;
+    string sppkp = 13;
+}
+
+message RegisterCompanyResponse {
+    string message = 1; 
+}
+
+message SendOtpRequest {
+    string phone_number = 1;
+    OtpType type = 2;
+}
+message SendOtpResponse {
+    OtpPayload otp = 1;
+    ErrorPayload error = 2;
+}
+
+message VerifyOtpRequest {
+    string phone_number = 1;
+    string owner_id = 2;
+    string otp_code = 3;
+    OtpType type = 4;
+}
+
+message VerifyOtpResponse {
+    OtpPayload otp = 1;
+    ErrorPayload error = 2;
+}
+
+message AuthLoginRequest {
+    string phone_number = 1;
+    string owner_id = 2;
+    string password = 3;
+}
+
+message AuthLoginResponse {
+    string refresh_token = 1;
+    string token = 2;
+    UserInfo user = 3;
+    ErrorPayload error = 4;
 }
