@@ -54,12 +54,12 @@ func (s *Service) UserActivation(ctx context.Context, userData *dto.UserActivate
 
 	company, err = s.company.FindByCompanyCode(ctx, userData.CompanyCode)
 	if err != nil {
-		return nil, nil, constants.GetCustomError("Company Code tidak ditemukan")
+		return nil, nil, constants.GetCompanyCodeNotFoundError()
 	}
 
 	user, err = s.users.FindByEmployeeId(ctx, userData.EmployeeId)
 	if err != nil {
-		return nil, nil, constants.GetCustomError("BFF ID tidak ditemukan")
+		return nil, nil, constants.GetEmployeeIdNotFoundError()
 	}
 
 	_, err = s.users.UserActivation(ctx, userData)

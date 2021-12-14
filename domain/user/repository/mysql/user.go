@@ -56,7 +56,7 @@ func (r *repo) UserActivation(ctx context.Context, userData *dto.UserActivateReq
 
 	err := r.db.Where(map[string]interface{}{"employee_id": userData.EmployeeId, "active": 0}).First(&user).Error
 	if err != nil {
-		return nil, constants.GetCustomError("BFF ID sudah pernah didaftarkan. Silakan Login")
+		return nil, constants.GetEmployeeAlreadyActivatedError()
 	}
 
 	err = r.db.Model(&user).Where("employee_id = ?", userData.EmployeeId).Update("active", true).Error

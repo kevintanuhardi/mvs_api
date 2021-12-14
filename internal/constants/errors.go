@@ -72,6 +72,24 @@ func GetWrongPassError() *CustomError {
 	}
 }
 
+func GetCompanyCodeNotFoundError() *CustomError {
+	return &CustomError{
+		message: "Company Code tidak ditemukani",
+	}
+}
+
+func GetEmployeeIdNotFoundError() *CustomError {
+	return &CustomError{
+		message: "BFF ID tidak ditemukan",
+	}
+}
+
+func GetEmployeeAlreadyActivatedError() *CustomError {
+	return &CustomError{
+		message: "BFF ID sudah pernah didaftarkan. Silakan Login",
+	}
+}
+
 func GetCustomError(message string) error {
 	return errors.New(message)
 }
