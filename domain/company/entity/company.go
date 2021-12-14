@@ -17,6 +17,22 @@ type Company struct {
 	SPPKP       string `json:"sppkp"`
 }
 
+type CompanyObject struct {
+	Code        string 
+	Name        string 
+	Address     string 
+	Country     string 
+	Province    string 
+	City        string 
+	District    string 
+	Village     string 
+	PostalCode  string 
+	PhoneNumber string 
+	FaxNumber   string 
+	NPWP        string 
+	SPPKP       string 
+}
+
 func (Company) TableName() string {
 	return "company"
 }
