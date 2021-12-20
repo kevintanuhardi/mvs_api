@@ -94,7 +94,7 @@ func (se *server) SendOtp(ctx context.Context, request *pb.SendOtpRequest) (*pb.
 	}, nil
 }
 
-func (se *server) Verify(ctx context.Context, request *pb.VerifyOtpRequest) (*pb.VerifyOtpResponse, error) {
+func (se *server) VerifyOtp(ctx context.Context, request *pb.VerifyOtpRequest) (*pb.VerifyOtpResponse, error) {
 	v := validator.New()
 
 	parsedRequest := dto.VerifyOTPRequest{
@@ -235,7 +235,7 @@ func (se *server) Verify(ctx context.Context, request *pb.VerifyOtpRequest) (*pb
 	}, nil
 }
 
-func (se *server) Login(ctx context.Context, request *pb.AuthLoginRequest) (*pb.AuthLoginResponse, error) {
+func (se *server) AuthLogin(ctx context.Context, request *pb.AuthLoginRequest) (*pb.AuthLoginResponse, error) {
 	v := validator.New()
 
 	parsedRequest := dto.LoginRequest{
