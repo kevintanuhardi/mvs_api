@@ -54,39 +54,39 @@ generate-proto:
   tags:
     - gke
 
-linter:
-  <<: *go_init_config
-  stage: report
-  variables:
-    GOPRIVATE: "gitlab.warungpintar.co"
-  before_script:
-    - mkdir -p $HOME/.docker
-    - echo "$DOCKER_AUTH_CONFIG" >> "$HOME/.docker/config.json"
-    - mkdir -p $HOME/.ssh
-    - touch $HOME/.ssh/config
-    - echo "${GIT_PRIVATE_KEY}" > $HOME/.ssh/id_rsa
-    - chmod 600 $HOME/.ssh/id_rsa
-    - echo "IdentityFile $HOME/.ssh/id_rsa" >> $HOME/.ssh/config
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > $HOME/.ssh/config
-    - git config --global url."git@gitlab.warungpintar.co:".insteadOf "https://gitlab.warungpintar.co/"
-  script:
-    - mkdir -p reports
-    - GOPRIVATE=gitlab.warungpintar.co
-    - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.41.1
-    - golangci-lint run --issues-exit-code 0 --timeout 10m --out-format checkstyle > ${CI_PROJECT_DIR}/reports/report.xml
-  only:
-    - merge_requests
-    - master
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - ${CI_PROJECT_DIR}/reports
-  artifacts:
-    paths:
-      - ${CI_PROJECT_DIR}/reports/report.xml
-    expire_in: 1 week
-  tags:
-    - gke
+# linter:
+#   <<: *go_init_config
+#   stage: report
+#   variables:
+#     GOPRIVATE: "gitlab.warungpintar.co"
+#   before_script:
+#     - mkdir -p $HOME/.docker
+#     - echo "$DOCKER_AUTH_CONFIG" >> "$HOME/.docker/config.json"
+#     - mkdir -p $HOME/.ssh
+#     - touch $HOME/.ssh/config
+#     - echo "${GIT_PRIVATE_KEY}" > $HOME/.ssh/id_rsa
+#     - chmod 600 $HOME/.ssh/id_rsa
+#     - echo "IdentityFile $HOME/.ssh/id_rsa" >> $HOME/.ssh/config
+#     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > $HOME/.ssh/config
+#     - git config --global url."git@gitlab.warungpintar.co:".insteadOf "https://gitlab.warungpintar.co/"
+#   script:
+#     - mkdir -p reports
+#     - GOPRIVATE=gitlab.warungpintar.co
+#     - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.41.1
+#     - golangci-lint run --issues-exit-code 0 --timeout 10m --out-format checkstyle > ${CI_PROJECT_DIR}/reports/report.xml
+#   only:
+#     - merge_requests
+#     - master
+#   cache:
+#     key: ${CI_COMMIT_REF_SLUG}
+#     paths:
+#       - ${CI_PROJECT_DIR}/reports
+#   artifacts:
+#     paths:
+#       - ${CI_PROJECT_DIR}/reports/report.xml
+#     expire_in: 1 week
+#   tags:
+#     - gke
 
 unit-test:
   <<: *go_init_config

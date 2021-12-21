@@ -11,6 +11,8 @@ import (
 	"gitlab.warungpintar.co/sales-platform/brook/domain"
 	companyDomain "gitlab.warungpintar.co/sales-platform/brook/domain/company"
 	companyMysql "gitlab.warungpintar.co/sales-platform/brook/domain/company/repository/mysql"
+	"google.golang.org/grpc/health"
+	healthpb "google.golang.org/grpc/health/grpc_health_v1"
 	otpDomain "gitlab.warungpintar.co/sales-platform/brook/domain/otp"
 	otpMysql "gitlab.warungpintar.co/sales-platform/brook/domain/otp/repository/mysql"
 	userDomain "gitlab.warungpintar.co/sales-platform/brook/domain/user"
@@ -94,6 +96,10 @@ func New(o *localOption) Server {
 	se.server = s
 
 	se.RegisterBrookServer(s, se)
+
+	// register health check
+	healthpb.RegisterHealthServer(s, health.NewServer())
+
 	se.RegisterReflection(s)
 	se.RegisterPrometheus(s)
 
