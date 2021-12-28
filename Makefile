@@ -75,10 +75,6 @@ mock:
 	mockgen --source=domain/domain.go --destination=domain/mocks/repository.go --package mocks
 	mockgen --source=domain/user/repository/repository.go --destination=domain/user/repository/mocks/repository.go --package mocks
 	mockgen --source=domain/user/usecase/user.go --destination=domain/user/usecase/mocks/service.go --package mocks
-	mockgen --source=domain/company/repository/repository.go --destination=domain/company/repository/mocks/repository.go --package mocks
-	mockgen --source=domain/company/usecase/company.go --destination=domain/company/usecase/mocks/service.go --package mocks
-	mockgen --source=domain/otp/usecase/otp.go --destination=domain/otp/usecase/mocks/service.go --package mocks
-	mockgen --source=domain/otp/repository/repository.go --destination=domain/otp/repository/mocks/repository.go --package mocks
 	mockgen --source=pkg/webservice/server.type.go --destination=pkg/webservice/mocks/server.type.go --package mocks
 	mockgen --source=pkg/router/router.go --destination=pkg/router/mocks/router.go --package mocks
 

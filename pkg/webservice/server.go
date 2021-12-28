@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/http"
 
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
+	"github.com/kevintanuhardi/mvs_api/pkg/router"
 )
 
 type WebHandler struct {

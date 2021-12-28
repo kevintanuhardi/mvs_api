@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/middleware"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
+	"github.com/kevintanuhardi/mvs_api/pkg/middleware"
+	"github.com/kevintanuhardi/mvs_api/pkg/router"
 )
 
 type ChiRouter struct {

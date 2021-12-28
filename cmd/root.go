@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"gitlab.warungpintar.co/sales-platform/brook/config"
+	"github.com/kevintanuhardi/mvs_api/config"
 )
 
 var cfg *config.Config

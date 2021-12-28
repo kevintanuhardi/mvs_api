@@ -5,7 +5,7 @@
 ### Golang Chi
 ```go
 
-    import "gitlab.warungpintar.co/sales-platform/brook/pkg/middleware"
+    import "github.com/kevintanuhardi/mvs_api/pkg/middleware"
 
     func main() {
         tracer, closer := tracing.Init("myapp")

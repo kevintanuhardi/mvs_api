@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/dto"
+	"github.com/kevintanuhardi/mvs_api/domain/user/entity"
+	"github.com/kevintanuhardi/mvs_api/domain/user/dto"
 )
 
 type Repository interface {

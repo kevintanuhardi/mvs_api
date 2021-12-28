@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/repository"
+	"github.com/kevintanuhardi/mvs_api/domain/user/repository"
 	"gorm.io/gorm"
 )
 

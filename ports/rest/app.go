@@ -5,23 +5,19 @@ import (
 	"log"
 
 	chimiddleware "github.com/go-chi/chi/middleware"
+	"github.com/kevintanuhardi/mvs_api/adapter"
+	"github.com/kevintanuhardi/mvs_api/config"
+	"github.com/kevintanuhardi/mvs_api/domain"
+	userDomain "github.com/kevintanuhardi/mvs_api/domain/user"
+	userMysql "github.com/kevintanuhardi/mvs_api/domain/user/repository/mysql"
+	"github.com/kevintanuhardi/mvs_api/pkg/metricserver"
+	"github.com/kevintanuhardi/mvs_api/pkg/middleware"
+	"github.com/kevintanuhardi/mvs_api/pkg/router"
+	routeradapter "github.com/kevintanuhardi/mvs_api/pkg/router/adapter"
+	"github.com/kevintanuhardi/mvs_api/pkg/tracing"
+	"github.com/kevintanuhardi/mvs_api/pkg/webservice"
+	"github.com/kevintanuhardi/mvs_api/ports/rest/public"
 	"github.com/opentracing/opentracing-go"
-	"gitlab.warungpintar.co/sales-platform/brook/adapter"
-	"gitlab.warungpintar.co/sales-platform/brook/config"
-	"gitlab.warungpintar.co/sales-platform/brook/domain"
-	companyDomain "gitlab.warungpintar.co/sales-platform/brook/domain/company"
-	companyMysql "gitlab.warungpintar.co/sales-platform/brook/domain/company/repository/mysql"
-	otpDomain "gitlab.warungpintar.co/sales-platform/brook/domain/otp"
-	otpMysql "gitlab.warungpintar.co/sales-platform/brook/domain/otp/repository/mysql"
-	userDomain "gitlab.warungpintar.co/sales-platform/brook/domain/user"
-	userMysql "gitlab.warungpintar.co/sales-platform/brook/domain/user/repository/mysql"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/middleware"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
-	routeradapter "gitlab.warungpintar.co/sales-platform/brook/pkg/router/adapter"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/tracing"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/webservice"
-	"gitlab.warungpintar.co/sales-platform/brook/ports/rest/public"
 	"gorm.io/gorm"
 )
 
@@ -84,12 +80,7 @@ func initService(db *gorm.DB) domain.DomainService {
 	return domain.NewDomain(
 		userDomain.NewUser(config.Config{},
 			userMysql.NewRepository(db),
-			companyMysql.NewRepository(db)),
-		companyDomain.NewCompany(config.Config{},
-			companyMysql.NewRepository(db)),
-		otpDomain.NewOtp(config.Config{},
-			userMysql.NewRepository(db),
-			otpMysql.NewRepository(db)),
+			),
 	)
 }
 func AppWithGorm(cfg *Config) (*gorm.DB, error) {

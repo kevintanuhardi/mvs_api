@@ -19,8 +19,8 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"gitlab.warungpintar.co/sales-platform/brook/config"
-	"gitlab.warungpintar.co/sales-platform/brook/ports/grpc"
+	"github.com/kevintanuhardi/mvs_api/config"
+	"github.com/kevintanuhardi/mvs_api/ports/grpc"
 )
 
 // grpcCmd represents the grpc command

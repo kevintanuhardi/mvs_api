@@ -4,12 +4,12 @@ import (
 	"io"
 
 	"github.com/opentracing/opentracing-go"
-	"gitlab.warungpintar.co/sales-platform/brook/adapter"
-	"gitlab.warungpintar.co/sales-platform/brook/config"
-	"gitlab.warungpintar.co/sales-platform/brook/domain"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/webservice"
+	"github.com/kevintanuhardi/mvs_api/adapter"
+	"github.com/kevintanuhardi/mvs_api/config"
+	"github.com/kevintanuhardi/mvs_api/domain"
+	"github.com/kevintanuhardi/mvs_api/pkg/metricserver"
+	"github.com/kevintanuhardi/mvs_api/pkg/router"
+	"github.com/kevintanuhardi/mvs_api/pkg/webservice"
 )
 
 type Config struct {

@@ -3,36 +3,19 @@ package domain
 import (
 	"context"
 
-	"gitlab.warungpintar.co/sales-platform/brook/domain/otp/dto"
-	userDto "gitlab.warungpintar.co/sales-platform/brook/domain/user/dto"
-	companyEntity "gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
-	userEntity "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	userEntity "github.com/kevintanuhardi/mvs_api/domain/user/entity"
 )
 
 type UserDomainInterface interface {
 	UserRegister(ctx context.Context, userData *userEntity.User) (user *userEntity.User, err error)
-	UserActivation(ctx context.Context, input *userDto.UserActivateRequest) (user *userEntity.User, company *companyEntity.Company, err error)
 }
 
-type CompanyDomainInterface interface {
-	CompanyRegister(ctx context.Context, companyData *companyEntity.Company) error
-}
-
-type OtpDomainInterface interface {
-	SendOTP(ctx context.Context, input *dto.SendOTPRequest) (dto.SendOTP, error)
-	Verify(ctx context.Context, input *dto.VerifyOTPRequest) (dto.SendOTP, error)
-	Login(ctx context.Context, input *dto.LoginRequest) (dto.Login, error)
-}
 type DomainService struct {
 	User UserDomainInterface
-	Company CompanyDomainInterface
-	Otp  OtpDomainInterface
 }
 
-func NewDomain (user UserDomainInterface, company CompanyDomainInterface, otp OtpDomainInterface) DomainService {
+func NewDomain (user UserDomainInterface) DomainService {
 	return DomainService{
 		User: user,
-		Company: company,
-		Otp:  otp,
 	}
 }

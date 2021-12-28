@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router/adapter"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/webservice"
+	"github.com/kevintanuhardi/mvs_api/pkg/router"
+	"github.com/kevintanuhardi/mvs_api/pkg/router/adapter"
+	"github.com/kevintanuhardi/mvs_api/pkg/webservice"
 )
 
 type RunMetricServerFunc func(cfg *Config)

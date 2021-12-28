@@ -3,8 +3,8 @@ package router
 import (
 	"net/http"
 
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/middleware"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/response"
+	"github.com/kevintanuhardi/mvs_api/pkg/middleware"
+	"github.com/kevintanuhardi/mvs_api/pkg/response"
 )
 
 type HTTPRouter interface {

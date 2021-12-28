@@ -7,7 +7,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/logger"
+	"github.com/kevintanuhardi/mvs_api/pkg/logger"
 	"go.uber.org/zap"
 )
 

@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	entity "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	entity "github.com/kevintanuhardi/mvs_api/domain/user/entity"
 )
 
 // MockServiceManager is a mock of ServiceManager interface.
@@ -35,26 +35,13 @@ func (m *MockServiceManager) EXPECT() *MockServiceManagerMockRecorder {
 	return m.recorder
 }
 
-// UserActivation mocks base method.
-func (m *MockServiceManager) UserActivation(ctx context.Context, userData *entity.User) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UserActivation", ctx, userData)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// UserActivation indicates an expected call of UserActivation.
-func (mr *MockServiceManagerMockRecorder) UserActivation(ctx, userData interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserActivation", reflect.TypeOf((*MockServiceManager)(nil).UserActivation), ctx, userData)
-}
-
 // UserRegister mocks base method.
-func (m *MockServiceManager) UserRegister(ctx context.Context, userData *entity.User) error {
+func (m *MockServiceManager) UserRegister(ctx context.Context, userData *entity.User) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserRegister", ctx, userData)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UserRegister indicates an expected call of UserRegister.

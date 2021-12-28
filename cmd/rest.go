@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"gitlab.warungpintar.co/sales-platform/brook/ports/rest"
+	"github.com/kevintanuhardi/mvs_api/ports/rest"
 )
 
 // restCmd represents the rest command

@@ -7,9 +7,9 @@ import (
 	"testing"
 
 	_ "github.com/go-sql-driver/mysql"
-	"gitlab.warungpintar.co/sales-platform/brook/adapter"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/dto"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	"github.com/kevintanuhardi/mvs_api/adapter"
+	"github.com/kevintanuhardi/mvs_api/domain/user/dto"
+	"github.com/kevintanuhardi/mvs_api/domain/user/entity"
 	"gorm.io/gorm"
 )
 

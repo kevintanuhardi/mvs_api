@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
-	routermock "gitlab.warungpintar.co/sales-platform/brook/pkg/router/mocks"
+	routermock "github.com/kevintanuhardi/mvs_api/pkg/router/mocks"
 )
 
 func TestRegister(t *testing.T) {

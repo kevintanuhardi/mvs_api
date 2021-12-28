@@ -1,4 +1,4 @@
-module gitlab.warungpintar.co/sales-platform/brook
+module github.com/kevintanuhardi/mvs_api
 
 go 1.16
 

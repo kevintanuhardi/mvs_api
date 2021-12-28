@@ -1,6 +1,6 @@
 package main
 
-import "gitlab.warungpintar.co/sales-platform/brook/cmd"
+import "github.com/kevintanuhardi/mvs_api/cmd"
 
 func main() {
 	cmd.Execute()

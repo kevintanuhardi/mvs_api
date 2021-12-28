@@ -8,7 +8,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	router "gitlab.warungpintar.co/sales-platform/brook/pkg/router"
+	router "github.com/kevintanuhardi/mvs_api/pkg/router"
 )
 
 // MockWebService is a mock of WebService interface.

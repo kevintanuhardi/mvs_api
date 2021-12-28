@@ -4,10 +4,10 @@ import (
 	"context"
 	"errors"
 
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/dto"
-	"gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	"github.com/kevintanuhardi/mvs_api/domain/user/dto"
+	"github.com/kevintanuhardi/mvs_api/domain/user/entity"
 
-	"gitlab.warungpintar.co/sales-platform/brook/internal/constants"
+	"github.com/kevintanuhardi/mvs_api/internal/constants"
 	"gorm.io/gorm"
 )
 

@@ -9,7 +9,8 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	entity "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	dto "github.com/kevintanuhardi/mvs_api/domain/user/dto"
+	entity "github.com/kevintanuhardi/mvs_api/domain/user/entity"
 )
 
 // MockRepository is a mock of Repository interface.
@@ -65,12 +66,28 @@ func (mr *MockRepositoryMockRecorder) FindByPhoneNumber(ctx, phoneNumber interfa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByPhoneNumber", reflect.TypeOf((*MockRepository)(nil).FindByPhoneNumber), ctx, phoneNumber)
 }
 
+// FindByPhoneNumberOrEmail mocks base method.
+func (m *MockRepository) FindByPhoneNumberOrEmail(ctx context.Context, phoneNumber, email string) (*entity.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByPhoneNumberOrEmail", ctx, phoneNumber, email)
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByPhoneNumberOrEmail indicates an expected call of FindByPhoneNumberOrEmail.
+func (mr *MockRepositoryMockRecorder) FindByPhoneNumberOrEmail(ctx, phoneNumber, email interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByPhoneNumberOrEmail", reflect.TypeOf((*MockRepository)(nil).FindByPhoneNumberOrEmail), ctx, phoneNumber, email)
+}
+
 // UserActivation mocks base method.
-func (m *MockRepository) UserActivation(ctx context.Context, userData *entity.User) error {
+func (m *MockRepository) UserActivation(ctx context.Context, userData *dto.UserActivateRequest) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserActivation", ctx, userData)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UserActivation indicates an expected call of UserActivation.
@@ -80,11 +97,12 @@ func (mr *MockRepositoryMockRecorder) UserActivation(ctx, userData interface{}) 
 }
 
 // UserRegister mocks base method.
-func (m *MockRepository) UserRegister(ctx context.Context, userData *entity.User) error {
+func (m *MockRepository) UserRegister(ctx context.Context, userData *entity.User) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserRegister", ctx, userData)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UserRegister indicates an expected call of UserRegister.

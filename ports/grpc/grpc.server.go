@@ -6,20 +6,16 @@ import (
 	"net"
 
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	"gitlab.warungpintar.co/sales-platform/brook/adapter"
-	"gitlab.warungpintar.co/sales-platform/brook/config"
-	"gitlab.warungpintar.co/sales-platform/brook/domain"
-	companyDomain "gitlab.warungpintar.co/sales-platform/brook/domain/company"
-	companyMysql "gitlab.warungpintar.co/sales-platform/brook/domain/company/repository/mysql"
+	"github.com/kevintanuhardi/mvs_api/adapter"
+	"github.com/kevintanuhardi/mvs_api/config"
+	"github.com/kevintanuhardi/mvs_api/domain"
+	userDomain "github.com/kevintanuhardi/mvs_api/domain/user"
+	userMysql "github.com/kevintanuhardi/mvs_api/domain/user/repository/mysql"
+	"github.com/kevintanuhardi/mvs_api/pkg/metricserver"
+	pb "github.com/kevintanuhardi/mvs_api/proto/brook"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
 	healthpb "google.golang.org/grpc/health/grpc_health_v1"
-	otpDomain "gitlab.warungpintar.co/sales-platform/brook/domain/otp"
-	otpMysql "gitlab.warungpintar.co/sales-platform/brook/domain/otp/repository/mysql"
-	userDomain "gitlab.warungpintar.co/sales-platform/brook/domain/user"
-	userMysql "gitlab.warungpintar.co/sales-platform/brook/domain/user/repository/mysql"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
-	pb "gitlab.warungpintar.co/sales-platform/brook/proto/brook"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"gorm.io/gorm"
 )
@@ -69,12 +65,7 @@ func initService(db *gorm.DB) domain.DomainService {
 	return domain.NewDomain(
 		userDomain.NewUser(config.Config{},
 			userMysql.NewRepository(db), 
-			companyMysql.NewRepository(db)),
-		companyDomain.NewCompany(config.Config{},
-			companyMysql.NewRepository(db)),
-		otpDomain.NewOtp(config.Config{},
-			userMysql.NewRepository(db),
-			otpMysql.NewRepository(db)),
+		),
 	)
 }
 

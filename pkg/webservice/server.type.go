@@ -1,6 +1,6 @@
 package webservice
 
-import "gitlab.warungpintar.co/sales-platform/brook/pkg/router"
+import "github.com/kevintanuhardi/mvs_api/pkg/router"
 
 type WebService interface {
 	Run() error

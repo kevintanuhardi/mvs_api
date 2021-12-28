@@ -17,8 +17,8 @@ Ports:
   grpc_metric: 7071
 
 DB:
-  master_dsn: brookusrstg:whhdq3HNjCnnteqC@tcp(34.124.174.117:3306)/brookdb?parseTime=true&timeout=5s
-  replica_dsn: brookusrstg:whhdq3HNjCnnteqC@tcp(34.124.174.117:3306)/brookdb?parseTime=true&timeout=5s
+  master_dsn: root:rootPassword@tcp(localhost:3306)/mvs?parseTime=true&timeout=5s
+  replica_dsn: root:rootPassword@tcp(localhost:3306)/mvs?parseTime=true&timeout=5s
   max_life_time: 3
   max_open: 10
   max_idle: 10

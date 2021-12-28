@@ -3,7 +3,7 @@ package grpc
 import (
 	"context"
 
-	pb "gitlab.warungpintar.co/sales-platform/brook/proto/brook"
+	pb "github.com/kevintanuhardi/mvs_api/proto/brook"
 )
 
 func (se *server) GetPing(context.Context, *pb.PingRequest) (*pb.PingResponse, error) {

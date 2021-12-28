@@ -1,8 +1,7 @@
 package dto
 
 import (
-	companyEntity "gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
-	userEntity "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	userEntity "github.com/kevintanuhardi/mvs_api/domain/user/entity"
 )
 
 type Error struct {
@@ -21,7 +20,6 @@ type UserActivateRequest struct {
 
 type UserInfo struct {
 	User    userEntity.User       `json:"user"`
-	Company companyEntity.Company `json:"company"`
 }
 
 type UserActivateResponse struct {

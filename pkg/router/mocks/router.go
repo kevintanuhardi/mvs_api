@@ -9,8 +9,8 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	middleware "gitlab.warungpintar.co/sales-platform/brook/pkg/middleware"
-	router "gitlab.warungpintar.co/sales-platform/brook/pkg/router"
+	middleware "github.com/kevintanuhardi/mvs_api/pkg/middleware"
+	router "github.com/kevintanuhardi/mvs_api/pkg/router"
 )
 
 // MockHTTPRouter is a mock of HTTPRouter interface.

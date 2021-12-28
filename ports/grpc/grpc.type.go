@@ -3,11 +3,11 @@ package grpc
 import (
 	"net"
 
-	"gitlab.warungpintar.co/sales-platform/brook/adapter"
-	"gitlab.warungpintar.co/sales-platform/brook/config"
-	"gitlab.warungpintar.co/sales-platform/brook/domain"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/metricserver"
-	pb "gitlab.warungpintar.co/sales-platform/brook/proto/brook"
+	"github.com/kevintanuhardi/mvs_api/adapter"
+	"github.com/kevintanuhardi/mvs_api/config"
+	"github.com/kevintanuhardi/mvs_api/domain"
+	"github.com/kevintanuhardi/mvs_api/pkg/metricserver"
+	pb "github.com/kevintanuhardi/mvs_api/proto/brook"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"gorm.io/gorm"

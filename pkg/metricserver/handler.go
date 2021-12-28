@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/response"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
+	"github.com/kevintanuhardi/mvs_api/pkg/response"
+	"github.com/kevintanuhardi/mvs_api/pkg/router"
 )
 
 type Metric struct {

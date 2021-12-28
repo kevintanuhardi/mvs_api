@@ -83,7 +83,7 @@ to do simple test simply run
 ```
 make unit-test
 ```
-to do test using sonarqube please read this [https://gitlab.warungpintar.co/sales-platform/brook/-/wikis/How-to-do-testing-using-Sonarqube-on-local-environment-(Linux)](wiki) 
+to do test using sonarqube please read this [https://github.com/kevintanuhardi/mvs_api/-/wikis/How-to-do-testing-using-Sonarqube-on-local-environment-(Linux)](wiki) 
 
 ### Migrate data to development database
 

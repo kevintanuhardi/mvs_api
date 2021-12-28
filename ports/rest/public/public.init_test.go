@@ -9,9 +9,9 @@ package public
 // 	"github.com/golang/mock/gomock"
 // 	"github.com/stretchr/testify/require"
 // 	"github.com/stretchr/testify/suite"
-// 	"gitlab.warungpintar.co/sales-platform/brook/domain"
-// 	usecasemock "gitlab.warungpintar.co/sales-platform/brook/domain/user/usecase/mocks"
-// 	routermocks "gitlab.warungpintar.co/sales-platform/brook/pkg/router/mocks"
+// 	"github.com/kevintanuhardi/mvs_api/domain"
+// 	usecasemock "github.com/kevintanuhardi/mvs_api/domain/user/usecase/mocks"
+// 	routermocks "github.com/kevintanuhardi/mvs_api/pkg/router/mocks"
 // )
 
 // func TestNewHandler(t *testing.T) {

@@ -9,9 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	entity "gitlab.warungpintar.co/sales-platform/brook/domain/company/entity"
-	dto "gitlab.warungpintar.co/sales-platform/brook/domain/otp/dto"
-	entity0 "gitlab.warungpintar.co/sales-platform/brook/domain/user/entity"
+	entity "github.com/kevintanuhardi/mvs_api/domain/user/entity"
 )
 
 // MockUserDomainInterface is a mock of UserDomainInterface interface.
@@ -37,135 +35,17 @@ func (m *MockUserDomainInterface) EXPECT() *MockUserDomainInterfaceMockRecorder 
 	return m.recorder
 }
 
-// UserActivation mocks base method.
-func (m *MockUserDomainInterface) UserActivation(ctx context.Context, userData *entity0.User) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UserActivation", ctx, userData)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// UserActivation indicates an expected call of UserActivation.
-func (mr *MockUserDomainInterfaceMockRecorder) UserActivation(ctx, userData interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserActivation", reflect.TypeOf((*MockUserDomainInterface)(nil).UserActivation), ctx, userData)
-}
-
 // UserRegister mocks base method.
-func (m *MockUserDomainInterface) UserRegister(ctx context.Context, userData *entity0.User) error {
+func (m *MockUserDomainInterface) UserRegister(ctx context.Context, userData *entity.User) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserRegister", ctx, userData)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*entity.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UserRegister indicates an expected call of UserRegister.
 func (mr *MockUserDomainInterfaceMockRecorder) UserRegister(ctx, userData interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserRegister", reflect.TypeOf((*MockUserDomainInterface)(nil).UserRegister), ctx, userData)
-}
-
-// MockCompanyDomainInterface is a mock of CompanyDomainInterface interface.
-type MockCompanyDomainInterface struct {
-	ctrl     *gomock.Controller
-	recorder *MockCompanyDomainInterfaceMockRecorder
-}
-
-// MockCompanyDomainInterfaceMockRecorder is the mock recorder for MockCompanyDomainInterface.
-type MockCompanyDomainInterfaceMockRecorder struct {
-	mock *MockCompanyDomainInterface
-}
-
-// NewMockCompanyDomainInterface creates a new mock instance.
-func NewMockCompanyDomainInterface(ctrl *gomock.Controller) *MockCompanyDomainInterface {
-	mock := &MockCompanyDomainInterface{ctrl: ctrl}
-	mock.recorder = &MockCompanyDomainInterfaceMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockCompanyDomainInterface) EXPECT() *MockCompanyDomainInterfaceMockRecorder {
-	return m.recorder
-}
-
-// CompanyRegister mocks base method.
-func (m *MockCompanyDomainInterface) CompanyRegister(ctx context.Context, companyData *entity.Company) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CompanyRegister", ctx, companyData)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// CompanyRegister indicates an expected call of CompanyRegister.
-func (mr *MockCompanyDomainInterfaceMockRecorder) CompanyRegister(ctx, companyData interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CompanyRegister", reflect.TypeOf((*MockCompanyDomainInterface)(nil).CompanyRegister), ctx, companyData)
-}
-
-// MockOtpDomainInterface is a mock of OtpDomainInterface interface.
-type MockOtpDomainInterface struct {
-	ctrl     *gomock.Controller
-	recorder *MockOtpDomainInterfaceMockRecorder
-}
-
-// MockOtpDomainInterfaceMockRecorder is the mock recorder for MockOtpDomainInterface.
-type MockOtpDomainInterfaceMockRecorder struct {
-	mock *MockOtpDomainInterface
-}
-
-// NewMockOtpDomainInterface creates a new mock instance.
-func NewMockOtpDomainInterface(ctrl *gomock.Controller) *MockOtpDomainInterface {
-	mock := &MockOtpDomainInterface{ctrl: ctrl}
-	mock.recorder = &MockOtpDomainInterfaceMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockOtpDomainInterface) EXPECT() *MockOtpDomainInterfaceMockRecorder {
-	return m.recorder
-}
-
-// Login mocks base method.
-func (m *MockOtpDomainInterface) Login(ctx context.Context, input *dto.LoginRequest) (dto.Login, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Login", ctx, input)
-	ret0, _ := ret[0].(dto.Login)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Login indicates an expected call of Login.
-func (mr *MockOtpDomainInterfaceMockRecorder) Login(ctx, input interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Login", reflect.TypeOf((*MockOtpDomainInterface)(nil).Login), ctx, input)
-}
-
-// SendOTP mocks base method.
-func (m *MockOtpDomainInterface) SendOTP(ctx context.Context, input *dto.SendOTPRequest) (dto.SendOTP, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SendOTP", ctx, input)
-	ret0, _ := ret[0].(dto.SendOTP)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// SendOTP indicates an expected call of SendOTP.
-func (mr *MockOtpDomainInterfaceMockRecorder) SendOTP(ctx, input interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendOTP", reflect.TypeOf((*MockOtpDomainInterface)(nil).SendOTP), ctx, input)
-}
-
-// Verify mocks base method.
-func (m *MockOtpDomainInterface) Verify(ctx context.Context, input *dto.VerifyOTPRequest) (dto.SendOTP, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Verify", ctx, input)
-	ret0, _ := ret[0].(dto.SendOTP)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Verify indicates an expected call of Verify.
-func (mr *MockOtpDomainInterfaceMockRecorder) Verify(ctx, input interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Verify", reflect.TypeOf((*MockOtpDomainInterface)(nil).Verify), ctx, input)
 }

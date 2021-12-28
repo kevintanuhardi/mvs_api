@@ -6,11 +6,11 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/router"
-	routermock "gitlab.warungpintar.co/sales-platform/brook/pkg/router/mocks"
-	webmocks "gitlab.warungpintar.co/sales-platform/brook/pkg/webservice/mocks"
+	"github.com/kevintanuhardi/mvs_api/pkg/router"
+	routermock "github.com/kevintanuhardi/mvs_api/pkg/router/mocks"
+	webmocks "github.com/kevintanuhardi/mvs_api/pkg/webservice/mocks"
 
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/webservice"
+	"github.com/kevintanuhardi/mvs_api/pkg/webservice"
 )
 
 func TestGetDefaultConfig(t *testing.T) {

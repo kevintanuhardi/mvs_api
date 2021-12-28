@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/response"
+	"github.com/kevintanuhardi/mvs_api/pkg/response"
 )
 
 func TestChiUseChiRouter(t *testing.T) {

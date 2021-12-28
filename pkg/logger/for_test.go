@@ -6,8 +6,8 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/stretchr/testify/require"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/logger"
-	"gitlab.warungpintar.co/sales-platform/brook/pkg/tracing"
+	"github.com/kevintanuhardi/mvs_api/pkg/logger"
+	"github.com/kevintanuhardi/mvs_api/pkg/tracing"
 	"go.uber.org/zap"
 )
 
