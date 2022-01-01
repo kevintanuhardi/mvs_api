@@ -1,6 +1,6 @@
 # App configuration
 App:
-  name: "brook"
+  name: "mvs_api"
   version: "0.1.0"
   latency: 30 # milliseconds
   read_timeout: 5 # seconds
