@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 
-	"github.com/kevintanuhardi/mvs_api/domain/user/dto"
 	"github.com/kevintanuhardi/mvs_api/domain/user/entity"
 
 	"github.com/kevintanuhardi/mvs_api/internal/constants"
@@ -18,10 +17,10 @@ func (r *repo) UserRegister(ctx context.Context, userData *entity.User) (user *e
 	return userData, nil
 }
 
-func (r *repo) FindByPhoneNumber(ctx context.Context, phoneNumber string) (*entity.User, error) {
+func (r *repo) FindByEmail(ctx context.Context, email string) (*entity.User, error) {
 	user := entity.User{}
 
-	if err := r.db.First(&user, entity.User{PhoneNumber: phoneNumber}).Error; err != nil {
+	if err := r.db.Where(entity.User{Email: email}).First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
@@ -38,30 +37,6 @@ func (r *repo) FindByPhoneNumberOrEmail(ctx context.Context, phoneNumber string,
 			return nil, nil
 		}
 		return &user, constants.GetErrDatabaseError()
-	}
-	return &user, nil
-}
-
-func (r *repo) FindByEmployeeId(ctx context.Context, employeeId string) (*entity.User, error) {
-	user := entity.User{}
-
-	if err := r.db.First(&user, entity.User{EmployeeId: employeeId}).Error; err != nil {
-		return &user, constants.GetErrDatabaseError()
-	}
-	return &user, nil
-}
-
-func (r *repo) UserActivation(ctx context.Context, userData *dto.UserActivateRequest) (*entity.User, error) {
-	user := entity.User{}
-
-	err := r.db.Where(map[string]interface{}{"employee_id": userData.EmployeeId, "active": 0}).First(&user).Error
-	if err != nil {
-		return nil, constants.GetEmployeeAlreadyActivatedError()
-	}
-
-	err = r.db.Model(&user).Where("employee_id = ?", userData.EmployeeId).Update("active", true).Error
-	if err != nil {
-		return nil, constants.GetErrDatabaseError()
 	}
 	return &user, nil
 }

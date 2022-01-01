@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	entity "github.com/kevintanuhardi/mvs_api/domain/user/entity"
+	dto "github.com/kevintanuhardi/mvs_api/domain/user/dto"
 )
 
 // MockServiceManager is a mock of ServiceManager interface.
@@ -36,10 +36,10 @@ func (m *MockServiceManager) EXPECT() *MockServiceManagerMockRecorder {
 }
 
 // UserRegister mocks base method.
-func (m *MockServiceManager) UserRegister(ctx context.Context, userData *entity.User) (*entity.User, error) {
+func (m *MockServiceManager) UserRegister(ctx context.Context, userData *dto.RegisterUserRequest) (*dto.RegisterUserResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserRegister", ctx, userData)
-	ret0, _ := ret[0].(*entity.User)
+	ret0, _ := ret[0].(*dto.RegisterUserResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

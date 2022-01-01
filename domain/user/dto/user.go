@@ -1,9 +1,5 @@
 package dto
 
-import (
-	userEntity "github.com/kevintanuhardi/mvs_api/domain/user/entity"
-)
-
 type Error struct {
 	IsError           bool   `json:"is_error"`
 	IsShowPopup       bool   `json:"is_show_popup"`
@@ -13,16 +9,37 @@ type Error struct {
 	ServerMessage     string `json:"server_message"`
 }
 
-type UserActivateRequest struct {
-	EmployeeId  string `json:"employee_id" validate:"required"`
-	CompanyCode string `json:"company_code" validate:"required"`
+type RegisterUserRequest struct {
+	Name string `json:"name,omitempty" validate:"required"`
+	PhoneNumber string	`json:"phone_number" validate:"required"`
+	Email string	`json:"email" validate:"required,email"`
+	Password string	`json:"password" validate:"required"`
+	Role string `json:"role" validate:"oneof=admin super_admin"`
+}
+
+type RegisterUserResponse struct {
+	ID *int `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
+	PhoneNumber string	`json:"phone_number"`
+	Email string	`json:"email"`
+	Role string `json:"role"`
+}
+
+type LoginRequest struct {
+	Email string `json:"email" validate:"required,email"`
+	Password    string `json:"password" validate:"required"`
+}
+
+type LoginResponse struct {
+	RefreshToken string      `json:"refresh_token"`
+	Token        string      `json:"token"`
+	User         *UserInfo `json:"user"`
 }
 
 type UserInfo struct {
-	User    userEntity.User       `json:"user"`
-}
-
-type UserActivateResponse struct {
-	User  UserInfo
-	Error Error
+	ID *int `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
+	PhoneNumber string	`json:"phone_number"`
+	Email string	`json:"email"`
+	Role string `json:"role"`
 }
