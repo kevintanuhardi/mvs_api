@@ -8,6 +8,8 @@ import (
 	"github.com/kevintanuhardi/mvs_api/adapter"
 	"github.com/kevintanuhardi/mvs_api/config"
 	"github.com/kevintanuhardi/mvs_api/domain"
+	invoiceDomain "github.com/kevintanuhardi/mvs_api/domain/invoice"
+	invoiceMysql "github.com/kevintanuhardi/mvs_api/domain/invoice/repository/mysql"
 	userDomain "github.com/kevintanuhardi/mvs_api/domain/user"
 	userMysql "github.com/kevintanuhardi/mvs_api/domain/user/repository/mysql"
 	"github.com/kevintanuhardi/mvs_api/pkg/metricserver"
@@ -80,7 +82,10 @@ func initService(db *gorm.DB) domain.DomainService {
 	return domain.NewDomain(
 		userDomain.NewUser(config.Config{},
 			userMysql.NewRepository(db),
-			),
+		),
+		invoiceDomain.NewInvoice(config.Config{},
+			invoiceMysql.NewRepository(db),
+		),
 	)
 }
 func AppWithGorm(cfg *Config) (*gorm.DB, error) {

@@ -1,0 +1,20 @@
+package constants
+
+
+
+var ExcelAxis = map[string]string{
+	"invoice_no": "D7",
+	"invoice_date": "D8",
+}
+
+const (
+	INVOICE_NO_AXIS = "D7"
+	INVOICE_DATE_AXIS = "D8"
+	DUE_DATE_AXIS = "D9"
+	BILLING_CONTACT_NAME_AXIS = "A14"
+	BILLING_ADDRESS_AXIS = "A15"
+	BILLING_CONTACT_PHONE_AXIS = "A16"
+	SHIPPING_CONTACT_NAME_AXIS = "C14"
+	SHIPPING_ADDRESS_AXIS = "C15"
+	SHIPPING_CONTACT_PHONE_AXIS = "C16"
+)

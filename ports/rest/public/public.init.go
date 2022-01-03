@@ -22,8 +22,11 @@ func NewHandler(service domain.DomainService) *Public {
 func (p *Public) Register(rr router.Registrator) {
 	r := router.New(p.prefix, rr)
 	r.GET("/healthz", p.PING)
+	// USER routes
 	r.POST("/user", p.RegisterUser)
 	r.POST("/user/login", p.Login)
+	// INVOICE routes
+	r.POST("/invoice/excel", p.Login)
 }
 
 func (p *Public) PING(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
