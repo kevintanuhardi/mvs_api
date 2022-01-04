@@ -2,7 +2,6 @@ package public
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -54,26 +53,9 @@ func (p *Public) Login(w http.ResponseWriter, r *http.Request) response.HTTPResp
 		}
 	}
 
-	user, err := p.service.User.Login(r.Context(), &request)
-	fmt.Println("user on rest: ", user.User)
+	_, err = p.service.User.Login(r.Context(), &request)
 	if err != nil {
 		return response.NewJSONResponse().SetError(err)
 	}
 	return response.NewJSONResponse().SetMessage("Success")
 }
-
-// func (p *Public) ActivateUser(w http.ResponseWriter, r *http.Request) response.HTTPResponse {
-// 	var request dto.UserActivateRequest
-
-// 	decoder := json.NewDecoder(r.Body)
-// 	err := decoder.Decode(&request)
-// 	if err != nil {
-// 		return response.NewJSONResponse().SetError(err)
-// 	}
-
-// 	_, _, err = p.service.User.UserActivation(r.Context(), &request)
-// 	if err != nil {
-// 		return response.NewJSONResponse().SetError(err)
-// 	}
-// 	return response.NewJSONResponse().SetMessage("Success")
-// }
