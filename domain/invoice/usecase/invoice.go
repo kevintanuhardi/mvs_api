@@ -18,7 +18,8 @@ type Service struct {
 }
 
 type ServiceManager interface {
-	GetInvoice(ctx context.Context, invoiceDetail *dto.GetInvoiceRequest ) (file *excelize.File, err error)
+	CreateInvoice(ctx context.Context, invoiceDetail *dto.CreateInvoiceRequest ) (file *excelize.File, filename string, err error)
+	GetInvoiceXls(ctx context.Context, invoiceDetail *dto.GetInvoiceXlsRequest ) (file *excelize.File, filename string, err error)
 }
 
 func NewService(invoice repository.Repository) *Service {
@@ -33,12 +34,7 @@ func setExcelCell(f *excelize.File, axis string ,content interface{}) error {
 	return nil
 }
 
-func (s *Service) GetInvoice(ctx context.Context, invoiceDetail *dto.GetInvoiceRequest ) (file *excelize.File, err error) {
-	f, err := excelize.OpenFile("/Users/KevinTanuhardi/Documents/MVS/mvs_api/assets/format_invoice_mvs.xlsx")
-	if err != nil {
-			return nil, err
-	}
-
+func (s *Service) CreateInvoice(ctx context.Context, invoiceDetail *dto.CreateInvoiceRequest ) (invoice *dto.CreateInvoiceResponse, err error) {
 	lastInvoice, err := s.invoice.GetLastInvoice(ctx)
 	if err != nil {
 		return nil, err
@@ -48,74 +44,7 @@ func (s *Service) GetInvoice(ctx context.Context, invoiceDetail *dto.GetInvoiceR
 	if err != nil {
 		return nil, err
 	}
-	dueDate := invoiceDate.AddDate(0, 0, invoiceDetail.PaymentPeriodInDays)
 	currentInvoiceNo := lastInvoice.InvoiceNo + 1
-
-	fullInvoiceNum := []string{
-		fmt.Sprintf("%08d", currentInvoiceNo),
-		"MVS",
-		constants.IntToRomNum[int(invoiceDate.Month())],
-		fmt.Sprint(invoiceDate.Year()),
-	}
-
-
-	err = setExcelCell(f, constants.INVOICE_NO_AXIS, strings.Join(fullInvoiceNum, "/"))
-	if err != nil {
-		return nil, err
-	}
-
-	err = setExcelCell(f, constants.INVOICE_DATE_AXIS, invoiceDate)
-	if err != nil {
-		return nil, err
-	}
-
-	err = setExcelCell(f, constants.DUE_DATE_AXIS, dueDate)
-	if err != nil {
-		return nil, err
-	}
-
-
-	// STYLING date format
-	dateStyle, err := f.NewStyle(`{"number_format": 15}`)
-	if err != nil {
-			fmt.Println(err)
-			return nil, err
-	}
-	err = f.SetCellStyle("Sheet1", "D8", "D9", dateStyle)
-	if err != nil {
-			fmt.Println(err)
-			return nil, err
-	}
-
-	err = setExcelCell(f, constants.SHIPPING_CONTACT_NAME_AXIS, invoiceDetail.ShippingContactName)
-	if err != nil {
-		return nil, err
-	}
-	err = setExcelCell(f, constants.SHIPPING_ADDRESS_AXIS, invoiceDetail.ShippingAddress)
-	if err != nil {
-		return nil, err
-	}
-	err = setExcelCell(f, constants.SHIPPING_CONTACT_PHONE_AXIS, invoiceDetail.ShippingContactPhone)
-	if err != nil {
-		return nil, err
-	}
-	// err = f.SetCellValue("Sheet1", "C20", 5)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// err = f.SetCellValue("Sheet1", "D20", 25000)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// err = f.SetCellValue("Sheet1", "C21", 5)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// err = f.SetCellValue("Sheet1", "D21", 25000)
-	// if err != nil {
-	// 	return nil, err
-	// }
 
 	invoiceEnt := &entity.Invoice{
 		InvoiceNo:            currentInvoiceNo,
@@ -135,14 +64,115 @@ func (s *Service) GetInvoice(ctx context.Context, invoiceDetail *dto.GetInvoiceR
 		CreatedAt:            time.Time{},
 		UpdatedAt:            time.Time{},
 	}
-	s.invoice.CreateInvoice(ctx, invoiceEnt)
+	invoiceEnt, err = s.invoice.CreateInvoice(ctx, invoiceEnt)
+	if err != nil {
+		return nil, err
+	}
 
-	// TODO: return file and download it from http
-	// fileName := fmt.Sprintf(
-	// 	"/Users/KevinTanuhardi/Documents/MVS/mvs_api/assets/invoice_mvs_%s_%d.xlsx", 
-	// 	strings.Replace(invoiceDetail.ShippingContactName, " ", "_", -1),
-	// 	currentInvoiceNo,
-	// )
+	invoice = &dto.CreateInvoiceResponse{
+		InvoiceNo:            invoiceEnt.InvoiceNo,
+		InvoiceDate:          invoiceEnt.InvoiceDate.Format("02-01-2006"),
+		PaymentPeriodInDays:  invoiceEnt.PaymentPeriodInDays,
+		ShippingContactName:  invoiceEnt.ShippingContactName,
+		ShippingContactPhone: invoiceEnt.ShippingContactPhone,
+		ShippingAddress:      invoiceEnt.ShippingAddress,
+		ShippingCity:         invoiceEnt.ShippingCity,
+		ShippingPostalCode:   invoiceEnt.ShippingPostalCode,
+		BillingContactName:   invoiceEnt.BillingContactName,
+		BillingContactPhone:  invoiceEnt.BillingContactPhone,
+		BillingAddress:       invoiceEnt.BillingAddress,
+		BillingCity:          invoiceEnt.BillingCity,
+		BillingPostalCode:    invoiceEnt.BillingPostalCode,
+		Status:               invoiceEnt.Status,
+	}
+
+	return invoice, nil
+
+}
+
+func (s *Service) GetInvoiceXls(ctx context.Context, invoiceDetail *dto.GetInvoiceXlsRequest ) (file *excelize.File, filename string, err error) {
+	f, err := excelize.OpenFile("/Users/KevinTanuhardi/Documents/MVS/mvs_api/assets/format_invoice_mvs.xlsx")
+	if err != nil {
+			return nil, "", err
+	}
+
+	invoice, err := s.invoice.FindInvoiceByInvoiceId(ctx, invoiceDetail.InvoiceId)
+	if err != nil {
+		return nil, "", err
+	}
+
+	dueDate := invoice.InvoiceDate.AddDate(0, 0, invoice.PaymentPeriodInDays)
+
+	fullInvoiceNum := []string{
+		fmt.Sprintf("%08d", invoice.InvoiceNo),
+		"MVS",
+		constants.IntToRomNum[int(invoice.InvoiceDate.Month())],
+		fmt.Sprint(invoice.InvoiceDate.Year()),
+	}
+
+	err = setExcelCell(f, constants.INVOICE_NO_AXIS, strings.Join(fullInvoiceNum, "/"))
+	if err != nil {
+		return nil, "", err
+	}
+
+	err = setExcelCell(f, constants.INVOICE_DATE_AXIS, invoice.InvoiceDate)
+	if err != nil {
+		return nil, "", err
+	}
+
+	err = setExcelCell(f, constants.DUE_DATE_AXIS, dueDate)
+	if err != nil {
+		return nil, "", err
+	}
+
+
+	// STYLING date format
+	dateStyle, err := f.NewStyle(`{"number_format": 15}`)
+	if err != nil {
+			fmt.Println(err)
+			return nil, "", err
+	}
+	err = f.SetCellStyle("Sheet1", "D8", "D9", dateStyle)
+	if err != nil {
+			fmt.Println(err)
+			return nil, "", err
+	}
+
+	err = setExcelCell(f, constants.SHIPPING_CONTACT_NAME_AXIS, invoice.ShippingContactName)
+	if err != nil {
+		return nil, "", err
+	}
+	err = setExcelCell(f, constants.SHIPPING_ADDRESS_AXIS, invoice.ShippingAddress)
+	if err != nil {
+		return nil, "", err
+	}
+	err = setExcelCell(f, constants.SHIPPING_CONTACT_PHONE_AXIS, invoice.ShippingContactPhone)
+	if err != nil {
+		return nil, "", err
+	}
+	// err = f.SetCellValue("Sheet1", "C20", 5)
+	// if err != nil {
+	// 	return nil, "", err
+	// }
+	// err = f.SetCellValue("Sheet1", "D20", 25000)
+	// if err != nil {
+	// 	return nil, "", err
+	// }
+
+	// err = f.SetCellValue("Sheet1", "C21", 5)
+	// if err != nil {
+	// 	return nil, "", err
+	// }
+	// err = f.SetCellValue("Sheet1", "D21", 25000)
+	// if err != nil {
+	// 	return nil, "", err
+	// }
+
+	filename = fmt.Sprintf(
+		"invoice_mvs_%s_%d.xlsx", 
+		strings.Replace(invoice.ShippingContactName, " ", "_", -1),
+		invoice.InvoiceNo,
+	)
 	// f.SaveAs(fileName)
-	return f, nil;
+	return f, filename, nil;
 }

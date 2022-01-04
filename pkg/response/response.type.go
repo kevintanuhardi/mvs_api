@@ -7,6 +7,8 @@ import (
 
 const JSONContentType = "application/json"
 
+const FileContentType = "application/octet-stream"
+
 var (
 	ErrorInternalServer    = NewError("Internal Server Error", http.StatusInternalServerError)
 	ErrorForbiddenResource = NewError("Forbidden Resource", http.StatusForbidden)

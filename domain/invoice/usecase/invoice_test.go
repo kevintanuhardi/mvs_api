@@ -15,7 +15,7 @@ func TestService_GetInvoice(t *testing.T) {
 	db, _ := rest.AppWithGorm(rest.GetDefaultConfig(cfg))
 	type args struct {
 		ctx context.Context
-		request dto.GetInvoiceRequest
+		request dto.CreateInvoiceRequest
 	}
 	tests := []struct {
 		name    string
@@ -32,7 +32,7 @@ func TestService_GetInvoice(t *testing.T) {
 			s: NewService(mysql.NewRepository(db)),
 			args: args{
 				ctx: nil,
-				request: dto.GetInvoiceRequest{
+				request: dto.CreateInvoiceRequest{
 					InvoiceDate:          "03-01-2021",
 					PaymentPeriodInDays:  4,
 					ShippingContactName:  "drh Test",

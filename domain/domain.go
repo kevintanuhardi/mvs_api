@@ -14,7 +14,8 @@ type UserDomainInterface interface {
 }
 
 type InvoiceDomainInterface interface {
-	GetInvoice(ctx context.Context, invoiceDetail *invoiceDto.GetInvoiceRequest ) (file *excelize.File, err error)
+	CreateInvoice(ctx context.Context, invoiceDetail *invoiceDto.CreateInvoiceRequest ) (file *excelize.File, filename string, err error)
+	GetInvoiceXls(ctx context.Context, invoiceDetail *invoiceDto.GetInvoiceXlsRequest ) (file *excelize.File, filename string, err error)
 }
 
 type DomainService struct {
