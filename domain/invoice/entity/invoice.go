@@ -18,6 +18,7 @@ type Invoice struct {
 	BillingCity string`json:"billing_city"`
 	BillingPostalCode string`json:"billing_postal_code"`
 	Status string`json:"status"`
+	// TODO: add shipping cost and subtotal and sales_id
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
