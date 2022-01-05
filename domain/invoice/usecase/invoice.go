@@ -18,7 +18,7 @@ type Service struct {
 }
 
 type ServiceManager interface {
-	CreateInvoice(ctx context.Context, invoiceDetail *dto.CreateInvoiceRequest ) (file *excelize.File, filename string, err error)
+	CreateInvoice(ctx context.Context, invoiceDetail *dto.CreateInvoiceRequest ) (*dto.CreateInvoiceResponse, error)
 	GetInvoiceXls(ctx context.Context, invoiceDetail *dto.GetInvoiceXlsRequest ) (file *excelize.File, filename string, err error)
 }
 

@@ -14,7 +14,7 @@ type UserDomainInterface interface {
 }
 
 type InvoiceDomainInterface interface {
-	CreateInvoice(ctx context.Context, invoiceDetail *invoiceDto.CreateInvoiceRequest ) (file *excelize.File, filename string, err error)
+	CreateInvoice(ctx context.Context, invoiceDetail *invoiceDto.CreateInvoiceRequest ) (*invoiceDto.CreateInvoiceResponse, error)
 	GetInvoiceXls(ctx context.Context, invoiceDetail *invoiceDto.GetInvoiceXlsRequest ) (file *excelize.File, filename string, err error)
 }
 

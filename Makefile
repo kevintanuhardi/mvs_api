@@ -111,11 +111,11 @@ check-dev: ## Checking our local env is ready
 
 .PHONY: migrate-up
 migrate-up: ## Migrate data to development database
-	goose --dir=db/migrations mysql "brook:brook@tcp(localhost:3307)/brook?parseTime=true&timeout=5s" up
+	goose --dir=db/migrations mysql "root:rootPassword@tcp(localhost:3306)/mvs?parseTime=true&timeout=5s" up
 
 .PHONY: migrate-down
 migrate-down: ## Reset data to development database
-	goose --dir=db/migrations mysql "brook:brook@tcp(localhost:3307)/brook?parseTime=true&timeout=5s" reset
+	goose --dir=db/migrations mysql "root:rootPassword@tcp(localhost:3306)/mvs?parseTime=true&timeout=5s" up
 
 .PHONY: seed
 seed: build ## Seeding Data
