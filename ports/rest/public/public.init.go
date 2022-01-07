@@ -29,6 +29,9 @@ func (p *Public) Register(rr router.Registrator) {
 
 	// INVOICE routes
 	r.POST("/invoice", p.CreateInvoice)
+
+	// PRODUCT routes
+	r.POST("/product", p.CreateProduct)
 }
 
 func (p *Public) PING(w http.ResponseWriter, r *http.Request) response.HTTPResponse {

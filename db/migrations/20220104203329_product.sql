@@ -2,7 +2,7 @@
 CREATE TABLE `product`
 (
     `id`            int(11)      NOT NULL AUTO_INCREMENT,
-		`name` varchar(40) NOT NULL,
+		`name` varchar(255) NOT NULL,
 		`category_id` int(11),
 		`sku_no` varchar(60) NOT NULL, 
     `created_at`    Timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,

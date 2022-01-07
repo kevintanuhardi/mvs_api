@@ -10,6 +10,8 @@ import (
 	"github.com/kevintanuhardi/mvs_api/domain"
 	invoiceDomain "github.com/kevintanuhardi/mvs_api/domain/invoice"
 	invoiceMysql "github.com/kevintanuhardi/mvs_api/domain/invoice/repository/mysql"
+	productDomain "github.com/kevintanuhardi/mvs_api/domain/product"
+	productMysql "github.com/kevintanuhardi/mvs_api/domain/product/repository/mysql"
 	userDomain "github.com/kevintanuhardi/mvs_api/domain/user"
 	userMysql "github.com/kevintanuhardi/mvs_api/domain/user/repository/mysql"
 	"github.com/kevintanuhardi/mvs_api/pkg/metricserver"
@@ -85,6 +87,9 @@ func initService(db *gorm.DB) domain.DomainService {
 		),
 		invoiceDomain.NewInvoice(config.Config{},
 			invoiceMysql.NewRepository(db),
+		),
+		productDomain.NewProduct(config.Config{},
+			productMysql.NewRepository(db),
 		),
 	)
 }

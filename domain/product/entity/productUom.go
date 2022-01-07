@@ -6,7 +6,8 @@ import (
 
 type ProductUom struct {
 	ID int `json:"id"`
-	ProductId string `json:"product_id"`
+	ProductId int `json:"product_id"`
+	Name string `json:"name"`
 	// Conversion to smallest UOM
 	Conversion int	`json:"conversion"`
 	IsSale bool `json:"is_sale"`

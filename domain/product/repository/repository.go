@@ -7,6 +7,7 @@ import (
 )
 
 type Repository interface {
-	CreateProduct(ctx context.Context, userData *entity.Product) (user *entity.Product, err error)
-	CreateProductUom(ctx context.Context, userData *entity.ProductUom) (user *entity.ProductUom, err error)
+	CreateProduct(ctx context.Context, productEnt *entity.Product) (*entity.Product, error)
+	// CreateProductUom(ctx context.Context, productUomEnt *entity.ProductUom) (*entity.ProductUom, error)
+	BulkCreateProductUom(ctx context.Context, productUomList []*entity.ProductUom) ([]*entity.ProductUom, error)
 }

@@ -3,6 +3,7 @@ CREATE TABLE `product_uom`
 (
     `id`            int(11)      NOT NULL AUTO_INCREMENT,
 		`name` varchar(40) NOT NULL,
+    `price` int(11) NOT NULL,
 		`product_id` int(11) NOT NULL,
 		`conversion` int(11) NOT NULL,
 		`is_sale` boolean NOT NULL DEFAULT true,

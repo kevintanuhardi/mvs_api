@@ -115,7 +115,7 @@ migrate-up: ## Migrate data to development database
 
 .PHONY: migrate-down
 migrate-down: ## Reset data to development database
-	goose --dir=db/migrations mysql "root:rootPassword@tcp(localhost:3306)/mvs?parseTime=true&timeout=5s" up
+	goose --dir=db/migrations mysql "root:rootPassword@tcp(localhost:3306)/mvs?parseTime=true&timeout=5s" down
 
 .PHONY: seed
 seed: build ## Seeding Data
